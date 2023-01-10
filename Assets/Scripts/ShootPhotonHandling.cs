@@ -21,6 +21,7 @@ public class ShootPhotonHandling : MonoBehaviourPunCallbacks
     {
         Debug.Log("abonné shoot local");
         weapon.ProjectileShot += Weapon_ProjectileShot;
+      
     }
 
     private void Weapon_ProjectileShot(int triggerIndex)

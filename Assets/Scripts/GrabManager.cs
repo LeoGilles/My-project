@@ -105,7 +105,12 @@ public class GrabManager : MonoBehaviourPunCallbacks
         }
         UxrGrabbableObject tempgrabObj = GetUxrGrabbableObjectByPhotonId(grabObjId);
        
-        tempgrabObj.gameObject.GetComponent<UxrManipulationHapticFeedback>().enabled = photonView.IsMine;
+        var haptic = tempgrabObj.gameObject.GetComponent<UxrManipulationHapticFeedback>();
+        if (haptic != null)
+        {
+            haptic.enabled = photonView.IsMine;
+        }
+       
         var tempWeapon = tempgrabObj.gameObject.GetComponent<UxrFirearmWeapon>();
         if (tempWeapon != null)
         {
@@ -126,10 +131,19 @@ public class GrabManager : MonoBehaviourPunCallbacks
         {
             tempGrabber = grabberRight;
         }
-
+        
         UxrGrabbableObject tempgrabObj = GetUxrGrabbableObjectByPhotonId(grabObjId);
-        tempgrabObj.gameObject.GetComponent<UxrManipulationHapticFeedback>().enabled = false;
-
+        var haptic = tempgrabObj.gameObject.GetComponent<UxrManipulationHapticFeedback>();
+        if (haptic != null)
+        {
+            haptic.enabled = false;
+        }
+        var grenade = tempgrabObj.gameObject.GetComponent<UxrGrenadeWeapon>();
+        if(grenade != null)
+        {
+            grenade.Owner = GetComponent<UxrActor>();
+            grenade.ActivateTimer();
+        }
         UxrGrabManager.Instance.ReleaseObject(tempGrabber,tempgrabObj, false);
         var tempWeapon = tempgrabObj.gameObject.GetComponent<UxrFirearmWeapon>();
         if (tempWeapon != null)
@@ -142,7 +156,11 @@ public class GrabManager : MonoBehaviourPunCallbacks
     void PlaceUxr(int grabObjId,int type,int anchorId)
     {
         UxrGrabbableObject tempgrabObj = GetUxrGrabbableObjectByPhotonId(grabObjId);
-        tempgrabObj.gameObject.GetComponent<UxrManipulationHapticFeedback>().enabled = false;
+        var haptic = tempgrabObj.gameObject.GetComponent<UxrManipulationHapticFeedback>();
+        if (haptic != null)
+        {
+            haptic.enabled = false;
+        }
         UxrGrabbableObjectAnchor tempAnchor = GetUxrGrabbableAnchorByPhotonId(anchorId);
         if(type == 0)
         {
