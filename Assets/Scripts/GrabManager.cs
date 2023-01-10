@@ -92,8 +92,13 @@ public class GrabManager : MonoBehaviourPunCallbacks
             tempGrabber = grabberRight;
         }
         UxrGrabbableObject tempgrabObj = GetUxrGrabbableObjectByPhotonId(grabObjId);
-
+       
         tempgrabObj.gameObject.GetComponent<UxrManipulationHapticFeedback>().enabled = photonView.IsMine;
+        var tempWeapon = tempgrabObj.gameObject.GetComponent<UxrFirearmWeapon>();
+        if (tempWeapon != null)
+        {
+            tempWeapon.Owner = GetComponent<UxrActor>();
+        }
         UxrGrabManager.Instance.GrabObject(tempGrabber, tempgrabObj, index, false);
     }
 
@@ -114,6 +119,11 @@ public class GrabManager : MonoBehaviourPunCallbacks
         tempgrabObj.gameObject.GetComponent<UxrManipulationHapticFeedback>().enabled = false;
 
         UxrGrabManager.Instance.ReleaseObject(tempGrabber,tempgrabObj, false);
+        var tempWeapon = tempgrabObj.gameObject.GetComponent<UxrFirearmWeapon>();
+        if (tempWeapon != null)
+        {
+            tempWeapon.Owner = null;
+        }
     }
 
     [PunRPC]

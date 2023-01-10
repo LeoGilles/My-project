@@ -2439,6 +2439,8 @@ MonoBehaviour:
   maxHealth: 100
   healthBarUi: {fileID: 0}
   slider: {fileID: 9188877169228019666}
+  animator: {fileID: 0}
+  capsCollider: {fileID: 7379034155551971398}
   actor: {fileID: -5627350662680035979}
 --- !u!114 &7147145809897091009
 MonoBehaviour:

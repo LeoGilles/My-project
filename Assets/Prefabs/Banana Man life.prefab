@@ -856,9 +856,10 @@ GameObject:
   - component: {fileID: 350233010256497800}
   - component: {fileID: 350233010256497801}
   - component: {fileID: -1644954786423860017}
+  - component: {fileID: 9031881438378261668}
   m_Layer: 0
   m_Name: Banana Man life
-  m_TagString: Untagged
+  m_TagString: NPC
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -932,6 +933,8 @@ MonoBehaviour:
   maxHealth: 100
   healthBarUi: {fileID: 350233009452282486}
   slider: {fileID: 350233010999308390}
+  animator: {fileID: 350233010256497799}
+  capsCollider: {fileID: 350233010256497800}
   actor: {fileID: -1644954786423860017}
 --- !u!114 &-1644954786423860017
 MonoBehaviour:
@@ -954,6 +957,28 @@ MonoBehaviour:
   _destroyAfterDeadSeconds: -1
   _automaticDamageHandling: 1
   _automaticDeadHandling: 1
+--- !u!114 &9031881438378261668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 350233010256497802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &350233010268292544
 GameObject:
   m_ObjectHideFlags: 0
