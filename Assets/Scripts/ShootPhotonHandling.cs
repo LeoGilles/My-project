@@ -25,7 +25,6 @@ public class ShootPhotonHandling : MonoBehaviourPunCallbacks
 
     private void Weapon_ProjectileShot(int triggerIndex)
     {
-        Debug.Log("shoot local");
         photonView.RPC("ShootUxr", RpcTarget.Others,triggerIndex);
     }
 
@@ -33,7 +32,6 @@ public class ShootPhotonHandling : MonoBehaviourPunCallbacks
     [PunRPC]
     void ShootUxr(int triggerIndex)
     {
-        Debug.Log("shoot " + triggerIndex);
         weapon.TryToShootRound(triggerIndex);
     }
 

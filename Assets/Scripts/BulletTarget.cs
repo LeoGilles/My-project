@@ -10,14 +10,15 @@ public class BulletTarget : MonoBehaviourPunCallbacks
     public float maxHealth;
     public GameObject healthBarUi;
     public Slider slider;
+    [SerializeField]
     private Animator animator;
+    [SerializeField]
     private CapsuleCollider capsCollider;
     [SerializeField]
     private UxrActor actor;
     // Start is called before the first frame update
     void Start()
     {
-
         health = maxHealth;
         slider.maxValue = maxHealth;
         slider.minValue = 0;
@@ -27,25 +28,26 @@ public class BulletTarget : MonoBehaviourPunCallbacks
             healthBarUi.SetActive(false);
         }
 
-        animator = GetComponent<Animator>();
-        capsCollider = GetComponent<CapsuleCollider>();
         actor.DamageReceived += LoseHealth;
     }
 
     private void LoseHealth(object sender, UxrDamageEventArgs e)
     {
-        Debug.Log($"{e.ActorSource.name} a tiré sur {e.ActorTarget.name} en infligeant {e.Damage} dégats de type {e.DamageType}");
-        Debug.Log(health / maxHealth);
-        actor.Life -= e.Damage;
-        health -= e.Damage;
-        if (health <= 0)
+        var photonTemp = e.ActorSource.gameObject.GetComponent<PhotonView>();
+        if (photonTemp.IsMine)
         {
-            Debug.Log(e.ActorTarget.name + " was killed by " + e.ActorSource.name);
+            photonTemp.RPC("looseLife", RpcTarget.Others, e.Damage, GetComponent<PhotonView>().ViewID);
+            actor.Life -= e.Damage;
+            health -= e.Damage;
+            if (health <= 0)
+            {
+                Debug.Log($"{e.ActorSource.name} killed {this.name}");
+            }
         }
     }
 
         // Update is called once per frame
-        void Update()
+    void Update()
     {
         slider.value = health;
 
@@ -53,7 +55,7 @@ public class BulletTarget : MonoBehaviourPunCallbacks
         {
             if(healthBarUi != null)
             {
-            healthBarUi.SetActive(true);
+                healthBarUi.SetActive(true);
             }
         }
 
@@ -64,8 +66,10 @@ public class BulletTarget : MonoBehaviourPunCallbacks
 
         if (health <= 0)
         {
-            
-            animator.SetLayerWeight(1, Mathf.Lerp(animator.GetLayerWeight(1), 1f, Time.deltaTime * 4f));
+            if(animator != null)
+            {
+                animator.SetLayerWeight(1, Mathf.Lerp(animator.GetLayerWeight(1), 1f, Time.deltaTime * 4f));
+            }
             if (healthBarUi != null)
             {
                 healthBarUi.SetActive(false);
@@ -74,18 +78,39 @@ public class BulletTarget : MonoBehaviourPunCallbacks
             {
                 capsCollider.enabled = false;    
             }
-            if(photonView != null && photonView.IsMine)
+            if(photonView != null && photonView.IsMine && gameObject.tag != "NPC")
             {
                 GameManager.Instance.LeaveRoom();
             }
             Destroy(this.gameObject,3f);
         }
-
-
     }
     public void LogDeath(string shooter)
     {
 
     }
 
+    [PunRPC]
+     void looseLife(float dmg,int photonId)
+     { 
+            var target =PhotonView.Find(photonId).gameObject.GetComponent<BulletTarget>();
+            target.actor.Life -= dmg;
+            target.health -= dmg;
+
+        /*if (target.health <= 0)
+        {
+            Debug.Log($"{target.name} died");
+            target.animator.SetLayerWeight(1, Mathf.Lerp(animator.GetLayerWeight(1), 1f, Time.deltaTime * 4f));
+            if (healthBarUi != null)
+            {
+                target.healthBarUi.SetActive(false);
+            }
+            if (capsCollider != null)
+            {
+                target.capsCollider.enabled = false;
+            }
+           
+            Destroy(target, 3f);
+        }*/
+    }
 }

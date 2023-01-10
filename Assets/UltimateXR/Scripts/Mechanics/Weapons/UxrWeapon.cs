@@ -19,7 +19,7 @@ namespace UltimateXR.Mechanics.Weapons
         /// <summary>
         ///     Gets who is in possession of the weapon, to attribute the inflicted damage to.
         /// </summary>
-        public UxrActor Owner { get; protected set; }
+        public UxrActor Owner { get; set; }
 
         #endregion
 
