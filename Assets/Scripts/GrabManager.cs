@@ -23,33 +23,33 @@ public class GrabManager : MonoBehaviourPunCallbacks
 
     private void GrabManager_ObjectPlacing(object sender, UxrManipulationEventArgs e)
     {
-        Debug.Log("object placed local");
         PhotonView obj = e.GrabbableObject.gameObject.GetComponent<PhotonView>();
         e.GrabbableObject.gameObject.GetComponent<UxrManipulationHapticFeedback>().enabled = false;
-        LeaveOwner(obj);
-        if (e.Grabber == grabberLeft)
+        PhotonView anchor = e.GrabbableAnchor.gameObject.GetComponent<PhotonView>();
+        if (e.PlacementType == UxrPlacementType.Immediate)
         {
-            photonView.RPC("PlaceUxr", RpcTarget.OthersBuffered, obj.ViewID);
+            photonView.RPC("PlaceUxr", RpcTarget.OthersBuffered, obj.ViewID,0,anchor.ViewID);
         }
-        else if (e.Grabber == grabberRight)
+        else
         {
-            photonView.RPC("PlaceUxr", RpcTarget.OthersBuffered, obj.ViewID);
-        }
+            photonView.RPC("PlaceUxr", RpcTarget.OthersBuffered, obj.ViewID,1, anchor.ViewID);
+        }  
     }
 
     private void GrabManager_ObjectReleasing(object sender, UxrManipulationEventArgs e)
     {
         PhotonView obj = e.GrabbableObject.gameObject.GetComponent<PhotonView>();
         e.GrabbableObject.gameObject.GetComponent<UxrManipulationHapticFeedback>().enabled = false;
-        LeaveOwner(obj);
+
         if (e.Grabber == grabberLeft)
         {
-            photonView.RPC("ReleaseUxr", RpcTarget.OthersBuffered, "left", obj.ViewID);
+            photonView.RPC("ReleaseUxr", RpcTarget.Others, "left", obj.ViewID);
         }
         else if (e.Grabber == grabberRight)
         {
-            photonView.RPC("ReleaseUxr", RpcTarget.OthersBuffered, "right", obj.ViewID);
-        }
+            photonView.RPC("ReleaseUxr", RpcTarget.Others, "right", obj.ViewID);
+        }       
+        LeaveOwner(obj);
     }
 
     private void GrabManager_ObjectGrabbing(object sender, UxrManipulationEventArgs e)
@@ -60,11 +60,11 @@ public class GrabManager : MonoBehaviourPunCallbacks
         ChangeOwner(obj);
         if (e.Grabber == grabberLeft)
         {
-            photonView.RPC("GrabUxr", RpcTarget.OthersBuffered, "left", obj.ViewID, e.GrabPointIndex);
+            photonView.RPC("GrabUxr", RpcTarget.Others, "left", obj.ViewID, e.GrabPointIndex);
         }
         else if(e.Grabber == grabberRight)
         {
-            photonView.RPC("GrabUxr", RpcTarget.OthersBuffered, "right", obj.ViewID, e.GrabPointIndex);
+            photonView.RPC("GrabUxr", RpcTarget.Others, "right", obj.ViewID, e.GrabPointIndex);
         }
     }
 
@@ -82,7 +82,6 @@ public class GrabManager : MonoBehaviourPunCallbacks
     [PunRPC]
     void GrabUxr(string hand, int grabObjId , int index)
     {
-        Debug.Log("GrabberId : " + hand + " objid : " + grabObjId + " anchorId : " + index);
         UxrGrabber tempGrabber; 
         if(hand == "left")
         {
@@ -118,17 +117,24 @@ public class GrabManager : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    void PlaceUxr(int grabObjId)
+    void PlaceUxr(int grabObjId,int type,int anchorId)
     {
-
         UxrGrabbableObject tempgrabObj = GetUxrGrabbableObjectByPhotonId(grabObjId);
         tempgrabObj.gameObject.GetComponent<UxrManipulationHapticFeedback>().enabled = false;
-        UxrGrabbableObjectAnchor tempAnchor = GetUxrGrabbableAnchorByPhotonId(grabObjId);
-        UxrGrabManager.Instance.PlaceObject(tempgrabObj,tempAnchor,UxrPlacementType.Immediate, false);
+        UxrGrabbableObjectAnchor tempAnchor = GetUxrGrabbableAnchorByPhotonId(anchorId);
+        if(type == 0)
+        {
+            UxrGrabManager.Instance.PlaceObject(tempgrabObj, tempAnchor, UxrPlacementType.Immediate, false);
+        }
+        else
+        {
+            UxrGrabManager.Instance.PlaceObject(tempgrabObj, tempAnchor, UxrPlacementType.Smooth, false);
+        }
     }
     private UxrGrabbableObjectAnchor GetUxrGrabbableAnchorByPhotonId(int photonId)
     {
-        return PhotonView.Find(photonId).gameObject.GetComponentInChildren<UxrGrabbableObjectAnchor>();
+        UxrGrabbableObjectAnchor temp = PhotonView.Find(photonId).gameObject.GetComponent<UxrGrabbableObjectAnchor>();
+        return temp;
     }
     private UxrGrabbableObject GetUxrGrabbableObjectByPhotonId(int photonId)
     {
