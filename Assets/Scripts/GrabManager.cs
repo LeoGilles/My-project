@@ -24,7 +24,11 @@ public class GrabManager : MonoBehaviourPunCallbacks
     private void GrabManager_ObjectPlacing(object sender, UxrManipulationEventArgs e)
     {
         PhotonView obj = e.GrabbableObject.gameObject.GetComponent<PhotonView>();
-        e.GrabbableObject.gameObject.GetComponent<UxrManipulationHapticFeedback>().enabled = false;
+        var haptic = e.GrabbableObject.gameObject.GetComponent<UxrManipulationHapticFeedback>();
+        if (haptic != null)
+        {
+            haptic.enabled = false;
+        }
         PhotonView anchor = e.GrabbableAnchor.gameObject.GetComponent<PhotonView>();
         if (e.PlacementType == UxrPlacementType.Immediate)
         {
@@ -39,8 +43,11 @@ public class GrabManager : MonoBehaviourPunCallbacks
     private void GrabManager_ObjectReleasing(object sender, UxrManipulationEventArgs e)
     {
         PhotonView obj = e.GrabbableObject.gameObject.GetComponent<PhotonView>();
-        e.GrabbableObject.gameObject.GetComponent<UxrManipulationHapticFeedback>().enabled = false;
-
+        var haptic = e.GrabbableObject.gameObject.GetComponent<UxrManipulationHapticFeedback>();
+        if (haptic != null)
+        {
+            haptic.enabled = false;
+        }
         if (e.Grabber == grabberLeft)
         {
             photonView.RPC("ReleaseUxr", RpcTarget.Others, "left", obj.ViewID);
@@ -55,8 +62,13 @@ public class GrabManager : MonoBehaviourPunCallbacks
     private void GrabManager_ObjectGrabbing(object sender, UxrManipulationEventArgs e)
     {
         PhotonView obj = e.GrabbableObject.gameObject.GetComponent<PhotonView>();
+
+        var haptic = e.GrabbableObject.gameObject.GetComponent<UxrManipulationHapticFeedback>();
+        if(haptic != null)
+        {
+            haptic.enabled = photonView.IsMine;
+        }
         
-        e.GrabbableObject.gameObject.GetComponent<UxrManipulationHapticFeedback>().enabled = photonView.IsMine;
         ChangeOwner(obj);
         if (e.Grabber == grabberLeft)
         {
