@@ -11,11 +11,16 @@ TagManager:
   - FxTemporaire
   - projectile
   - miniMapController
+  - projectile
+  - RoomLight
+  - FxTemporaire
+  - Bullet
+  - SamplesInfoPanel
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Environement
   - Water
   - UI
   - Player
