@@ -1,6 +1,7 @@
 using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UltimateXR.Mechanics.Weapons;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,6 +13,8 @@ public class BulletTarget : MonoBehaviourPunCallbacks
     public Slider slider;
     [SerializeField]
     private Animator animator;
+    [SerializeField]
+    private TextMeshProUGUI textLife;
     [SerializeField]
     private CapsuleCollider capsCollider;
     [SerializeField]
@@ -50,6 +53,10 @@ public class BulletTarget : MonoBehaviourPunCallbacks
     void Update()
     {
         slider.value = health;
+        if(textLife != null)
+        {
+            textLife.text = $"{health}/{maxHealth}";
+        }
 
         if (health < maxHealth)
         {
