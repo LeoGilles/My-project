@@ -34,6 +34,7 @@ public class ShootPhotonHandling : MonoBehaviourPunCallbacks
     void ShootUxr(int triggerIndex)
     {
         weapon.TryToShootRound(triggerIndex);
+         
     }
 
 

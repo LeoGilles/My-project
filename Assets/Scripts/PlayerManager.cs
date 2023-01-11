@@ -33,6 +33,8 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     private GrabManager grabManager;
     [SerializeField]
     private LocomotionTeleport teleport;
+    [SerializeField]
+    private Camera cameraMap;
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
        /* if (stream.IsWriting)
@@ -97,6 +99,10 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         if (teleport != null)
         {
             teleport.enabled = photonView.IsMine;
+        }
+        if (cameraMap != null)
+        {
+            cameraMap.enabled = photonView.IsMine;
         }
         // #Important
         // used in GameManager.cs: we keep track of the localPlayer instance to prevent instantiation when levels are synchronized

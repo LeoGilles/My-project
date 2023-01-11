@@ -8,6 +8,9 @@ TagManager:
   - MagMachinegun
   - NPC
   - PinGrenade
+  - FxTemporaire
+  - projectile
+  - miniMapController
   layers:
   - Default
   - TransparentFX
@@ -16,7 +19,7 @@ TagManager:
   - Water
   - UI
   - Player
-  - 
+  - MiniMap
   - 
   - 
   - 
