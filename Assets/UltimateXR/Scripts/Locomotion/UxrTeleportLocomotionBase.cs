@@ -3,6 +3,7 @@
 //   Copyright (c) VRMADA, All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UltimateXR.Avatar;
@@ -15,6 +16,12 @@ using UnityEngine;
 
 namespace UltimateXR.Locomotion
 {
+    public class TeleportEventArgs
+    {
+        public Transform arg1 { get; set; }
+        public Vector3 arg2 { get; set; }
+        public Quaternion arg3 { get; set; }
+    }
     /// <summary>
     ///     Base component for teleport locomotion.
     /// </summary>
@@ -62,7 +69,7 @@ namespace UltimateXR.Locomotion
         #endregion
 
         #region Public Types & Data
-
+        public event EventHandler<TeleportEventArgs> Teleported;
         /// <summary>
         ///     Gets the hand used to control the teleport component.
         /// </summary>
@@ -729,6 +736,8 @@ namespace UltimateXR.Locomotion
                 }
 
                 UxrTeleportSpawnCollider spawnCollider = _lastSpawnCollider;
+
+                Teleported?.Invoke(this, new TeleportEventArgs() { arg1= Avatar.transform,arg2= TransformExt.GetWorldPosition(TeleportReference, TeleportLocalPosition), arg3 = Quaternion.LookRotation(TransformExt.GetWorldDirection(TeleportReference, TeleportLocalDirection)) });;
 
                 UxrManager.Instance.TeleportLocalAvatarRelative(TeleportReference,
                                                                 parentToDestination,
