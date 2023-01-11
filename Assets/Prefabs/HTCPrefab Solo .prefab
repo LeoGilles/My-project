@@ -35,6 +35,10 @@ PrefabInstance:
       propertyPath: sceneViewId
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4881863746659056866, guid: 7ecf6c6d062056b4db80327dac401947, type: 3}
+      propertyPath: tp
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 5331051335944821690, guid: 7ecf6c6d062056b4db80327dac401947, type: 3}
       propertyPath: m_Name
       value: 'HTCPrefab Solo '
@@ -129,4 +133,6 @@ PrefabInstance:
     - {fileID: 4311033747487916572, guid: 7ecf6c6d062056b4db80327dac401947, type: 3}
     - {fileID: 7379034155551971398, guid: 7ecf6c6d062056b4db80327dac401947, type: 3}
     - {fileID: 6434406555718933776, guid: 7ecf6c6d062056b4db80327dac401947, type: 3}
+    - {fileID: 8831434096565989177, guid: 7ecf6c6d062056b4db80327dac401947, type: 3}
+    - {fileID: 4881863746659056866, guid: 7ecf6c6d062056b4db80327dac401947, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 7ecf6c6d062056b4db80327dac401947, type: 3}

@@ -31,6 +31,8 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     private AudioListener audio;
     [SerializeField]
     private GrabManager grabManager;
+    [SerializeField]
+    private LocomotionTeleport teleport;
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
        /* if (stream.IsWriting)
@@ -92,12 +94,17 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         {
             grabManager.enabled = photonView.IsMine;
         }
+        if (teleport != null)
+        {
+            teleport.enabled = photonView.IsMine;
+        }
         // #Important
         // used in GameManager.cs: we keep track of the localPlayer instance to prevent instantiation when levels are synchronized
         if (photonView.IsMine)
         {
             PlayerManager.LocalPlayerInstance = this.gameObject;
         }
+
         // #Critical
         // we flag as don't destroy on load so that instance survives level synchronization, thus giving a seamless experience when levels load.
         DontDestroyOnLoad(this.gameObject);
