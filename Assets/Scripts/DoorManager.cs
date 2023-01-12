@@ -33,9 +33,7 @@ public class DoorManager : MonoBehaviour
             playerInrange += 1;
             if (playerInrange > 0)
             {
-                Debug.Log("sesame");
                 animator.SetBool("IsOpen", true);
-                Debug.Log(animator.GetBool("IsOpen"));
             }
 
         }
