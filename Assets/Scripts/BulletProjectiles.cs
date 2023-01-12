@@ -26,8 +26,7 @@ public class BulletProjectiles : MonoBehaviour
         BulletTarget target = other.collider.GetComponent<BulletTarget>();
         if (target != null)
         {
-            target.health -= damage;
-           
+            target.health -= damage; 
         }
         else
         {

@@ -438,11 +438,12 @@ namespace UltimateXR.UI.Helpers.Keyboard
             }
             else if (key.KeyType == UxrKeyType.Backspace)
             {
-                if (CurrentLine.Length > 0)
+                ConsoleContent = ConsoleContent.Substring(0, ConsoleContent.Length - 1);
+                /*if (CurrentLine.Length > 0)
                 {
                     ConsoleContent = ConsoleContent.Substring(0, ConsoleContent.Length - 1);
                     CurrentLine    = CurrentLine.Substring(0, CurrentLine.Length - 1);
-                }
+                }*/
             }
             else if (key.KeyType == UxrKeyType.Del)
             {

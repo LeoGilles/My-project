@@ -2,6 +2,7 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine.InputSystem.UI;
+using UnityEngine.UI;
 
 public class Launcher : MonoBehaviourPunCallbacks
 {
@@ -29,8 +30,6 @@ public class Launcher : MonoBehaviourPunCallbacks
     private GameObject htcPrefab;
     [SerializeField]
     private AudioListener audio;
-    [SerializeField]
-    private GameObject keyboard;
     [SerializeField]
     private GameObject canvasVR;
     [SerializeField]
@@ -71,7 +70,6 @@ public class Launcher : MonoBehaviourPunCallbacks
             LocalVR = Instantiate(htcPrefab,new Vector3(0f,0f,0f),new Quaternion());           
             mainCamera.enabled = false;
             audio.enabled = false;
-            keyboard.SetActive(true);
             canvasVR.SetActive(true);
             canvasPC.SetActive(false);
         }
@@ -181,7 +179,6 @@ public class Launcher : MonoBehaviourPunCallbacks
             // #Critical
             // Load the Room Level.
             PhotonNetwork.LoadLevel("Playground");
-
 
         }
     }
