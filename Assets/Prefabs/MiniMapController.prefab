@@ -126,6 +126,7 @@ GameObject:
   - component: {fileID: 2090942006033772652}
   - component: {fileID: 2125571505773004476}
   - component: {fileID: 2115292368817100650}
+  - component: {fileID: 8550283785744326321}
   - component: {fileID: 2140733648061699952}
   - component: {fileID: 6935507869510875840}
   - component: {fileID: 6398563789732607252}
@@ -209,6 +210,21 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &8550283785744326321
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2092270372683687520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 006697e38832c494a9a886533f3d807e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  avatar: {fileID: 0}
+  grabObj: {fileID: 6935507869510875840}
+  CanvasVR: {fileID: 3535858126513463068}
 --- !u!54 &2140733648061699952
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -452,7 +468,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d08f3c02197a3f4ea71f397b2416ce4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _smoothTransition: 1
+  _smoothTransition: 0
   _returnDelaySeconds: 2
 --- !u!1 &3535858126513463068
 GameObject:
@@ -472,7 +488,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &6421114441965483070
 RectTransform:
   m_ObjectHideFlags: 0
@@ -481,7 +497,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3535858126513463068}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: -0.0258}
+  m_LocalPosition: {x: 0, y: 0, z: 0.0202}
   m_LocalScale: {x: 0.02, y: 0.02, z: 0.02}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -492,7 +508,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0.0006, y: 0.0342}
+  m_AnchoredPosition: {x: 0.0001, y: 0.0317}
   m_SizeDelta: {x: 10, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &4716878315244485467
@@ -736,7 +752,7 @@ RectTransform:
   m_GameObject: {fileID: 7329792180098193575}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6421114441965483070}
