@@ -85,11 +85,11 @@ public class GameManager : MonoBehaviourPunCallbacks
                 // we're in a room. spawn a character for the local player. it gets synced by using PhotonNetwork.Instantiate
                 if(GetDeviceUsed() == "HTCPrefab")
                 {
-                    PhotonNetwork.Instantiate("HTCPrefab", new Vector3(0f, 0.2f, 0f),new Quaternion(0, 1, 0, 0), 0);
+                    PhotonNetwork.Instantiate("HTCPrefab", new Vector3(0f, 0.2f, 13f),new Quaternion(0, 1, 0, 0), 0);
                 }
                 else
                 {
-                    PhotonNetwork.Instantiate("pcPrefab", new Vector3(-30f, 0.2f, 0f), Quaternion.identity, 0);
+                    PhotonNetwork.Instantiate("pcPrefab", new Vector3(0f, 0.2f, -108f), Quaternion.identity, 0);
                 }
                 
             }
@@ -107,7 +107,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             return;
         }
         Debug.LogFormat("PhotonNetwork : Loading Level : {0}", PhotonNetwork.CurrentRoom.PlayerCount);
-        PhotonNetwork.LoadLevel("Playground");
+        PhotonNetwork.LoadLevel("MainMapScene");
     }
      static string GetDeviceUsed()
     {
