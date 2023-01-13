@@ -19,6 +19,11 @@ public class BulletTarget : MonoBehaviourPunCallbacks
     private CapsuleCollider capsCollider;
     [SerializeField]
     private UxrActor actor;
+
+    [SerializeField]
+    private GameObject playerPrefab;
+
+    private bool isDead =false;
     // Start is called before the first frame update
     void Start()
     {
@@ -71,27 +76,52 @@ public class BulletTarget : MonoBehaviourPunCallbacks
             health = maxHealth;
         }
 
-        if (health <= 0)
+        if (health <= 0 && !isDead)
         {
-            if(animator != null)
-            {
-                animator.SetLayerWeight(1, Mathf.Lerp(animator.GetLayerWeight(1), 1f, Time.deltaTime * 4f));
-            }
-            if (healthBarUi != null)
-            {
-                healthBarUi.SetActive(false);
-            }
-            if (capsCollider != null)
-            {
-                capsCollider.enabled = false;    
-            }
-            if(photonView != null && photonView.IsMine && gameObject.tag != "NPC")
-            {
-                GameManager.Instance.LeaveRoom();
-            }
-            Destroy(this.gameObject,3f);
+            //Destroy(this.gameObject,3f);
+            isDead = true;
+            Reset();
         }
     }
+
+    private void Reset()
+    {
+        Debug.Log("dead");
+        if (animator != null)
+        {
+            animator.SetLayerWeight(1, Mathf.Lerp(animator.GetLayerWeight(1), 1f, Time.deltaTime * 4f));
+        }
+        if (healthBarUi != null)
+        {
+            healthBarUi.SetActive(false);
+        }
+        if (capsCollider != null)
+        {
+            capsCollider.enabled = false;
+        }
+        if (photonView != null && photonView.IsMine && gameObject.tag != "NPC")
+        {
+            //GameManager.Instance.LeaveRoom();
+        }
+
+        Vector3 spawnPosition = RespawnManager.instance.OnPcPlayerDeath();
+        StartCoroutine(RespawnPlayer(spawnPosition));
+        
+    }
+
+    private IEnumerator RespawnPlayer(Vector3 spawnPosition)
+    {
+        yield return new WaitForSeconds(2f);
+        Debug.Log("respawn");
+        playerPrefab.transform.position = spawnPosition;
+        health = maxHealth;
+        slider.value = maxHealth;
+        healthBarUi.SetActive(true);
+        capsCollider.enabled = true;
+        isDead = false;
+
+    }
+
     public void LogDeath(string shooter)
     {
 
