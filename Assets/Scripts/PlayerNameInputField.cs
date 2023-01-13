@@ -4,6 +4,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using System.Collections;
 using UltimateXR.UI.Helpers.Keyboard;
+using TMPro;
 /// <summary>
 /// Player name input field. Let the user input his name, will appear above the player in the game.
 /// </summary>
@@ -14,7 +15,9 @@ public class PlayerNameInputField : MonoBehaviour
     // Store the PlayerPref Key to avoid typos
     const string playerNamePrefKey = "PlayerName";
     [SerializeField]
-    private Text inputField;
+    private TMP_InputField inputFieldPC;
+    [SerializeField]
+    private Text inputFieldVR;
     [SerializeField]
     private UxrKeyboardUI keyboard;
     #endregion
@@ -28,17 +31,23 @@ public class PlayerNameInputField : MonoBehaviour
     {
 
         string defaultName = string.Empty;
-        if (inputField != null)
+        if (inputFieldVR != null)
         {
             if (PlayerPrefs.HasKey(playerNamePrefKey))
             {
                 defaultName = PlayerPrefs.GetString(playerNamePrefKey);
-
-                keyboard.AddConsoleContent(defaultName);
+                keyboard.AddConsoleContent(defaultName);            
+            }
+        }
+        else
+        {
+            if (PlayerPrefs.HasKey(playerNamePrefKey))
+            {
+                defaultName = PlayerPrefs.GetString(playerNamePrefKey);
+                inputFieldPC.text = defaultName;
             }
         }
         PhotonNetwork.NickName = defaultName;
-        Debug.Log(PhotonNetwork.NickName);
     }
 
     #endregion
@@ -61,7 +70,18 @@ public class PlayerNameInputField : MonoBehaviour
 
         PlayerPrefs.SetString(playerNamePrefKey, text.text);
     }
+    public void SetPlayerNamePC(TMP_InputField text)
+    {
+        // #Important
+        if (string.IsNullOrEmpty(text.text))
+        {
+            Debug.LogError("Player Name is null or empty");
+            return;
+        }
+        PhotonNetwork.NickName = text.text;
 
+        PlayerPrefs.SetString(playerNamePrefKey, text.text);
+    }
     #endregion
 }
 

@@ -19,6 +19,10 @@ public class BulletTarget : MonoBehaviourPunCallbacks
     private CapsuleCollider capsCollider;
     [SerializeField]
     private UxrActor actor;
+    [SerializeField]
+    private AudioSource dmgTaken;
+    [SerializeField]
+    private AudioSource died;
     // Start is called before the first frame update
     void Start()
     {
@@ -39,12 +43,19 @@ public class BulletTarget : MonoBehaviourPunCallbacks
         var photonTemp = e.ActorSource.gameObject.GetComponent<PhotonView>();
         if (photonTemp.IsMine)
         {
+       
             photonTemp.RPC("looseLife", RpcTarget.Others, e.Damage, GetComponent<PhotonView>().ViewID);
             actor.Life -= e.Damage;
             health -= e.Damage;
+            
             if (health <= 0)
             {
                 Debug.Log($"{e.ActorSource.name} killed {this.name}");
+                Died();
+            }
+            else
+            {
+                Hurt();
             }
         }
     }
@@ -92,11 +103,20 @@ public class BulletTarget : MonoBehaviourPunCallbacks
             Destroy(this.gameObject,3f);
         }
     }
-    public void LogDeath(string shooter)
+    public void Hurt()
     {
-
+        if(dmgTaken != null)
+        {
+            dmgTaken.Play();
+        }
     }
-
+    public void Died()
+    {
+        if (died != null)
+        {
+            died.Play();
+        }
+    }
     [PunRPC]
      void looseLife(float dmg,int photonId)
      { 

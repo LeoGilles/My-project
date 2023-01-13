@@ -26,7 +26,11 @@ public class ShootPhotonHandling : MonoBehaviourPunCallbacks
 
     private void Weapon_ProjectileShot(int triggerIndex)
     {
-        photonView.RPC("ShootUxr", RpcTarget.Others,triggerIndex);
+        var view = weapon.Owner.gameObject.GetComponent<PhotonView>();
+        if (view.IsMine)
+        {
+            photonView.RPC("ShootUxr", RpcTarget.Others, triggerIndex);
+        }     
     }
 
 

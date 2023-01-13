@@ -22,7 +22,8 @@ public class ThirdPersonShooter : MonoBehaviourPunCallbacks
     private GameObject bulletProjectile;
     [SerializeField]
     private Transform spawnBulletPosition;
-
+    [SerializeField]
+    private AudioSource audioBullet;
 
     private ThirdPersonController thirdPersonController;
     private StarterAssetsInputs starterAssetsInputs;
@@ -84,6 +85,10 @@ public class ThirdPersonShooter : MonoBehaviourPunCallbacks
 
                 //Instantiate(bulletProjectile, spawnBulletPosition.position, Quaternion.LookRotation(aimDir, Vector3.up));
                 photonView.RPC("Shoot",RpcTarget.AllViaServer,spawnBulletPosition.position, aimDir,PhotonNetwork.NickName);
+                if(audioBullet != null)
+                {
+                audioBullet.Play();
+                }
                 starterAssetsInputs.shoot = false;
             }
         

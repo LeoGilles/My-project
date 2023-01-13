@@ -78,7 +78,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sfx: {fileID: 1429954232896169630, guid: 83036083a4ebcd34f98131bd3cf6f4d2, type: 3}
   speed: 50
-  damage: 25
+  damage: 10
   shooter: 
 --- !u!1 &5517806602290118423
 GameObject:
