@@ -7,60 +7,59 @@ using CartoonFX;
 using UltimateXR.Core;
 
 public class TrailTPVr : MonoBehaviourPunCallbacks
-{   [SerializeField]
+{
+    [SerializeField]
     private UxrTeleportLocomotionBase tpLeft;
     [SerializeField]
     private UxrTeleportLocomotionBase tpRight;
     [SerializeField]
     private GameObject prefabAnimation;
     private bool canTP = true;
-    public int cooldown = 3;
+    public int cooldown = 5;
 
     // Start is called before the first frame update
     void Start()
     {
         tpLeft.Teleported += Tp_Teleported;
         tpRight.Teleported += Tp_Teleported;
-        UxrManager.AvatarMoving += UxrManager_AvatarMoving;
     }
-
-    private void UxrManager_AvatarMoving(object sender, UltimateXR.Avatar.UxrAvatarMoveEventArgs e)
+    private void Update()
     {
-        Debug.Log(canTP);
         if (canTP)
         {
-            canTP = false;
-            StartCoroutine(CoolDown(cooldown));
+            tpLeft.IsOnCooldown = false;
+            tpRight.IsOnCooldown = false;
         }
         else
         {
-            // Cancel la TP ici
-            return;
-        }
-        IEnumerator CoolDown(float CD)
-        {
-            yield return new WaitForSeconds(CD);
-            canTP = true;
+            tpLeft.IsOnCooldown = true;
+            tpRight.IsOnCooldown = true;
         }
     }
-
+    IEnumerator CoolDown(float CD)
+    {
+        yield return new WaitForSeconds(CD);
+        canTP = true;
+    }
     private void Tp_Teleported(object sender, TeleportEventArgs e)
     {
         photonView.RPC("Trail", RpcTarget.Others, e.arg1.position, e.arg2);
+        canTP = false;
+        StartCoroutine(CoolDown(cooldown));
     }
 
     [PunRPC]
     void Trail(Vector3 position, Vector3 newPosition)
     {
-        StartCoroutine(Lerp(position,newPosition));
+        StartCoroutine(Lerp(position, newPosition));
     }
     IEnumerator Lerp(Vector3 position, Vector3 newPosition)
     {
-        float timeElapsed = 0;  
+        float timeElapsed = 0;
         float lerpDuration = 0.4f;
         position.y = 1;
         newPosition.y = 1;
-        var cloneAnimation = Instantiate(prefabAnimation, position,Quaternion.identity);
+        var cloneAnimation = Instantiate(prefabAnimation, position, Quaternion.identity);
         cloneAnimation.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
         while (timeElapsed < lerpDuration)
         {

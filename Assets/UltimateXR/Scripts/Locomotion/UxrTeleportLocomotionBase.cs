@@ -921,6 +921,7 @@ namespace UltimateXR.Locomotion
         /// </summary>
         protected bool IsOtherComponentTeleporting => _otherAvatarTeleports != null && _otherAvatarTeleports.Any(otherTeleport => otherTeleport.IsTeleporting);
 
+        public bool IsOnCooldown { get; set; }
         /// <summary>
         ///     Gets whether the component is currently allowed to teleport the avatar.
         /// </summary>
@@ -939,7 +940,10 @@ namespace UltimateXR.Locomotion
                     // Head is currently inside a wall. Avoid teleportation for "cheating".
                     return false;
                 }
-
+                if(IsOnCooldown)
+                {
+                    return false;
+                }
 
                 Vector3 cameraPos          = UxrAvatar.LocalAvatar.CameraPosition;
                 Vector3 cameraToController = ControllerStart - cameraPos;
