@@ -13,6 +13,8 @@ namespace Valve.VR.InteractionSystem
 	//-------------------------------------------------------------------------
 	public class Teleport : MonoBehaviour
     {
+		private float lastTP;
+		public float cooldown = 3;
         public SteamVR_Action_Boolean teleportAction = SteamVR_Input.GetAction<SteamVR_Action_Boolean>("Teleport");
 
         public LayerMask traceLayerMask;
@@ -173,7 +175,9 @@ namespace Valve.VR.InteractionSystem
 		//-------------------------------------------------
 		void Start()
         {
-            teleportMarkers = GameObject.FindObjectsOfType<TeleportMarkerBase>();
+			lastTP = Time.time;
+
+			teleportMarkers = GameObject.FindObjectsOfType<TeleportMarkerBase>();
 
 			HidePointer();
 
@@ -893,13 +897,22 @@ namespace Valve.VR.InteractionSystem
 
 			if ( teleportingToMarker.ShouldMovePlayer() )
 			{
-				Vector3 playerFeetOffset = player.trackingOriginTransform.position - player.feetPositionGuess;
-				player.trackingOriginTransform.position = teleportPosition + playerFeetOffset;
+				if (Time.time - lastTP < cooldown)
+				{
+					return;
+				}
+				else
+				{
+					Debug.Log("TP'ed");
+					lastTP = Time.time;
+					Vector3 playerFeetOffset = player.trackingOriginTransform.position - player.feetPositionGuess;
+					player.trackingOriginTransform.position = teleportPosition + playerFeetOffset;
 
-                if (player.leftHand.currentAttachedObjectInfo.HasValue)
-                    player.leftHand.ResetAttachedTransform(player.leftHand.currentAttachedObjectInfo.Value);
-                if (player.rightHand.currentAttachedObjectInfo.HasValue)
-                    player.rightHand.ResetAttachedTransform(player.rightHand.currentAttachedObjectInfo.Value);
+					if (player.leftHand.currentAttachedObjectInfo.HasValue)
+						player.leftHand.ResetAttachedTransform(player.leftHand.currentAttachedObjectInfo.Value);
+					if (player.rightHand.currentAttachedObjectInfo.HasValue)
+						player.rightHand.ResetAttachedTransform(player.rightHand.currentAttachedObjectInfo.Value);
+				}
             }
 			else
 			{

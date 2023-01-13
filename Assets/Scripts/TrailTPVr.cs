@@ -4,6 +4,7 @@ using UltimateXR.Locomotion;
 using UnityEngine;
 using Photon.Pun;
 using CartoonFX;
+using UltimateXR.Core;
 
 public class TrailTPVr : MonoBehaviourPunCallbacks
 {   [SerializeField]
@@ -12,11 +13,35 @@ public class TrailTPVr : MonoBehaviourPunCallbacks
     private UxrTeleportLocomotionBase tpRight;
     [SerializeField]
     private GameObject prefabAnimation;
+    private bool canTP = true;
+    public int cooldown = 3;
+
     // Start is called before the first frame update
     void Start()
     {
         tpLeft.Teleported += Tp_Teleported;
         tpRight.Teleported += Tp_Teleported;
+        UxrManager.AvatarMoving += UxrManager_AvatarMoving;
+    }
+
+    private void UxrManager_AvatarMoving(object sender, UltimateXR.Avatar.UxrAvatarMoveEventArgs e)
+    {
+        Debug.Log(canTP);
+        if (canTP)
+        {
+            canTP = false;
+            StartCoroutine(CoolDown(cooldown));
+        }
+        else
+        {
+            // Cancel la TP ici
+            return;
+        }
+        IEnumerator CoolDown(float CD)
+        {
+            yield return new WaitForSeconds(CD);
+            canTP = true;
+        }
     }
 
     private void Tp_Teleported(object sender, TeleportEventArgs e)

@@ -66,6 +66,7 @@ namespace UltimateXR.Locomotion
         [SerializeField] private LayerMask               _validTargetLayers           = ~0;
         [SerializeField] private LayerMask               _blockingTargetLayers        = ~0;
 
+
         #endregion
 
         #region Public Types & Data
@@ -483,7 +484,7 @@ namespace UltimateXR.Locomotion
         /// <summary>
         ///     Cancels the current teleport target. When overriden in child classes the base class should be called too.
         /// </summary>
-        protected virtual void CancelTarget()
+        public virtual void CancelTarget()
         {
             EnableTeleportObjects(false, false);
             _isValidTeleport = false;
@@ -923,7 +924,7 @@ namespace UltimateXR.Locomotion
         /// <summary>
         ///     Gets whether the component is currently allowed to teleport the avatar.
         /// </summary>
-        protected bool IsAllowedToTeleport
+        public bool IsAllowedToTeleport
         {
             get
             {
@@ -938,6 +939,7 @@ namespace UltimateXR.Locomotion
                     // Head is currently inside a wall. Avoid teleportation for "cheating".
                     return false;
                 }
+
 
                 Vector3 cameraPos          = UxrAvatar.LocalAvatar.CameraPosition;
                 Vector3 cameraToController = ControllerStart - cameraPos;

@@ -235,7 +235,7 @@ namespace UltimateXR.Locomotion
         }
 
         /// <inheritdoc />
-        protected override void CancelTarget()
+        public override void CancelTarget()
         {
             base.CancelTarget();
 
