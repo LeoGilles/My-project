@@ -6,6 +6,7 @@ using StarterAssets;
 using Cinemachine;
 using UnityEngine.InputSystem;
 using UltimateXR.Avatar;
+using UltimateXR.Avatar.Controllers;
 
 public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
 {
@@ -32,7 +33,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     [SerializeField]
     private GrabManager grabManager;
     [SerializeField]
-    private LocomotionTeleport teleport;
+    private UxrStandardAvatarController VRController;
     [SerializeField]
     private Camera cameraMap;
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
@@ -96,9 +97,9 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         {
             grabManager.enabled = photonView.IsMine;
         }
-        if (teleport != null)
+        if (VRController != null)
         {
-            teleport.enabled = photonView.IsMine;
+            VRController.enabled = photonView.IsMine;
         }
         if (cameraMap != null)
         {
