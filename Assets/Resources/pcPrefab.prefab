@@ -25,17 +25,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1173683842402058586}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 3803042165953807709}
-  m_RootOrder: 2
+  m_Father: {fileID: 1103734924081776478}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -110, y: -110}
+  m_AnchoredPosition: {x: -100, y: -100}
   m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6126742336700752666
@@ -500,7 +500,6 @@ RectTransform:
   m_Children:
   - {fileID: 3803042164603058454}
   - {fileID: 7629429810455509780}
-  - {fileID: 8722762002772585951}
   - {fileID: 1103734924081776478}
   m_Father: {fileID: 538500554065881981}
   m_RootOrder: 7
@@ -1015,7 +1014,7 @@ GameObject:
   - component: {fileID: 4241804924958042280}
   - component: {fileID: 5922310131930591820}
   - component: {fileID: 4196177829122218823}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: TriangleMiniMap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1065,7 +1064,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f0e40fc865770de4cb1577c051163a9d, type: 2}
+  - {fileID: 2100000, guid: 302477ffe5025c8418b312bcaf88563f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1129,7 +1128,7 @@ Camera:
   m_GameObject: {fileID: 6390244203078973410}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
+  m_ClearFlags: 2
   m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
@@ -1151,7 +1150,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 256
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 8400000, guid: be75fe1a6a1583342a1f59b5ba2ce53c, type: 2}
   m_TargetDisplay: 0
@@ -1188,6 +1187,7 @@ GameObject:
   - component: {fileID: 1103734924081776478}
   - component: {fileID: 3559308254706923146}
   - component: {fileID: 7113280196377441561}
+  - component: {fileID: 506136464088315386}
   m_Layer: 0
   m_Name: Panel
   m_TagString: Untagged
@@ -1206,9 +1206,10 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 8722762002772585951}
   m_Father: {fileID: 3803042165953807709}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -1236,15 +1237,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.74509805}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 7aaec79531e4c0e40a1d0a77d48937e1, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -1253,6 +1254,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &506136464088315386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8831809286838848450}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31a19414c41e5ae4aae2af33fee712f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShowMaskGraphic: 1
 --- !u!1001 &2004603106094568877
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1453,7 +1467,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 434114961, guid: 0f453c2f891e4a4419de78102ce47ef2, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.742
+      value: 0.942
       objectReference: {fileID: 0}
     - target: {fileID: 1762682263, guid: 0f453c2f891e4a4419de78102ce47ef2, type: 3}
       propertyPath: audioBullet
@@ -1541,7 +1555,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3329475060865191130, guid: 0f453c2f891e4a4419de78102ce47ef2, type: 3}
       propertyPath: SprintSpeed
-      value: 10
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 3329475060865191130, guid: 0f453c2f891e4a4419de78102ce47ef2, type: 3}
       propertyPath: _mainCamera
@@ -2063,7 +2077,7 @@ MonoBehaviour:
   playerInput: {fileID: 879032926313050571}
   audio: {fileID: 3761954646254068519}
   grabManager: {fileID: 0}
-  teleport: {fileID: 0}
+  VRController: {fileID: 0}
   cameraMap: {fileID: 2425495312908963474}
 --- !u!114 &879032926313050571 stripped
 MonoBehaviour:

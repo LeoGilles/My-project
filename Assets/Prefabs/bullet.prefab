@@ -77,7 +77,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sfx: {fileID: 1429954232896169630, guid: 83036083a4ebcd34f98131bd3cf6f4d2, type: 3}
-  speed: 50
+  speed: 100
   damage: 10
   shooter: 
 --- !u!1 &5517806602290118423
@@ -142,7 +142,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: cac420a66d8d6ff489acfd2a24375dc3, type: 2}
+  - {fileID: 2100000, guid: 302477ffe5025c8418b312bcaf88563f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

@@ -21,13 +21,12 @@ TagManager:
   - TransparentFX
   - Ignore Raycast
   - Floor
-  - Environement
   - Water
   - UI
+  - UI
   - Player
-  - MiniMap
-  - 
-  - 
+  - MiniMapPC
+  - MiniMapVR
   - 
   - 
   - 
