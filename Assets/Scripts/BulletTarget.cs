@@ -66,7 +66,7 @@ public class BulletTarget : MonoBehaviourPunCallbacks
         slider.value = health;
         if(textLife != null)
         {
-            textLife.text = $"{health}/{maxHealth}";
+            textLife.text = $"{(int)health}/{(int)maxHealth}";
         }
 
         if (health < maxHealth)
