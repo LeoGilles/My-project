@@ -2063,7 +2063,7 @@ MonoBehaviour:
   playerInput: {fileID: 879032926313050571}
   audio: {fileID: 3761954646254068519}
   grabManager: {fileID: 0}
-  teleport: {fileID: 0}
+  VRController: {fileID: 0}
   cameraMap: {fileID: 2425495312908963474}
 --- !u!114 &879032926313050571 stripped
 MonoBehaviour:
