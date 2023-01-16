@@ -938,6 +938,8 @@ MonoBehaviour:
   textLife: {fileID: 0}
   capsCollider: {fileID: 350233010256497800}
   actor: {fileID: -1644954786423860017}
+  dmgTaken: {fileID: 0}
+  died: {fileID: 0}
 --- !u!114 &-1644954786423860017
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2953,7 +2955,7 @@ GameObject:
   - component: {fileID: 6445101804852986966}
   - component: {fileID: 1839756885200824664}
   - component: {fileID: 7643401689847887671}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3003,7 +3005,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b7d67d7d7ddb88542b23886a4b496c77, type: 2}
+  - {fileID: 2100000, guid: 302477ffe5025c8418b312bcaf88563f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

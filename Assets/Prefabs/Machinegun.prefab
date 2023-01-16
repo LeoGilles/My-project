@@ -479,7 +479,7 @@ MonoBehaviour:
   _triggers:
   - _projectileShotIndex: 0
     _cycleType: 2
-    _maxShotFrequency: 10
+    _maxShotFrequency: 5
     _shotAudio:
       _clip: {fileID: 8300000, guid: b911de1144c2fe54eb90315943b52d40, type: 3}
       _volume: 1
