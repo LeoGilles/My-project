@@ -20,10 +20,15 @@ public class JsonReader : MonoBehaviour
         public int TimeToContaminate;
     }
 
-    public Settings settings = new Settings();
+    private Settings settings = new Settings();
 
-    void Start()
+    void Awake()
     {
         settings = JsonUtility.FromJson<Settings>(textJSON.text);
+    }
+
+    public Settings GetSettings()
+    {
+        return settings;
     }
 }
