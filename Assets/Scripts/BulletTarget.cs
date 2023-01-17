@@ -26,18 +26,19 @@ public class BulletTarget : MonoBehaviourPunCallbacks
 
     [SerializeField] private bool isVR;
     [SerializeField] GameObject prefab;
+    [SerializeField] BulletTarget ownedShield;
     // Start is called before the first frame update
     void Start()
     {
         health = maxHealth;
-        if(slider != null)
+        if (slider != null)
         {
-        slider.maxValue = maxHealth;
-        slider.minValue = 0;
-        slider.value = maxHealth;
+            slider.maxValue = maxHealth;
+            slider.minValue = 0;
+            slider.value = maxHealth;
         }
 
-        if(healthBarUi != null)
+        if (healthBarUi != null)
         {
             healthBarUi.SetActive(false);
         }
@@ -50,7 +51,7 @@ public class BulletTarget : MonoBehaviourPunCallbacks
         var photonTemp = e.ActorSource.gameObject.GetComponent<PhotonView>();
         if (photonTemp.IsMine)
         {
-       
+
             photonTemp.RPC("looseLife", RpcTarget.Others, e.Damage, GetComponent<PhotonView>().ViewID);
             actor.Life -= e.Damage;
             health -= e.Damage;
@@ -81,70 +82,73 @@ public class BulletTarget : MonoBehaviourPunCallbacks
         }
 
 
-        slider.value = health;
+        if (slider != null)
         {
-            if (slider != null)
-            {
-                slider.value = health;
-            }
+            slider.value = health;
+        }
 
-            if (textLife != null)
-            {
-                textLife.text = $"{(int)health}/{(int)maxHealth}";
-            }
+        if (textLife != null)
+        {
+            textLife.text = $"{(int)health}/{(int)maxHealth}";
+        }
 
-            if (health < maxHealth)
+        if (health < maxHealth)
+        {
+            if (healthBarUi != null)
             {
-                if (healthBarUi != null)
-                {
-                    healthBarUi.SetActive(true);
-                }
-            }
-
-            if (health > maxHealth)
-            {
-                health = maxHealth;
-            }
-
-            if (health <= 0)
-            {
-                if (gameObject.tag == "Shield")
-                {
-                    gameObject.SetActive(false);
-                    return;
-                }
-                if (animator != null)
-                {
-                    animator.SetLayerWeight(1, Mathf.Lerp(animator.GetLayerWeight(1), 1f, Time.deltaTime * 4f));
-                }
-                if (healthBarUi != null)
-                {
-                    healthBarUi.SetActive(false);
-                }
-                if (capsCollider != null)
-                {
-                    capsCollider.enabled = false;
-                }
-                if (photonView != null && photonView.IsMine && gameObject.tag != "NPC")
-                {
-                    Vector3 newpos = Vector3.zero;
-                    if (isVR)
-                    {
-                        newpos = RespawnManager.instance.OnVrPlayerDeath();
-                    }
-                    else
-                    {
-                        newpos = RespawnManager.instance.OnPcPlayerDeath();
-                    }
-                    prefab.transform.position = newpos;
-                }
-                health = maxHealth;
+                healthBarUi.SetActive(true);
             }
         }
+
+        if (health > maxHealth)
+        {
+            health = maxHealth;
+        }
+
+        if (health <= 0)
+        {
+            if (gameObject.tag == "Shield")
+            {
+                gameObject.SetActive(false);
+                return;
+            }
+            if (animator != null)
+            {
+                animator.SetLayerWeight(1, Mathf.Lerp(animator.GetLayerWeight(1), 1f, Time.deltaTime * 4f));
+            }
+            if (healthBarUi != null)
+            {
+                healthBarUi.SetActive(false);
+            }
+            if (capsCollider != null)
+            {
+                capsCollider.enabled = false;
+            }
+            if (photonView != null && photonView.IsMine && gameObject.tag != "NPC")
+            {
+                Vector3 newpos = Vector3.zero;
+                if (isVR)
+                {
+                    newpos = RespawnManager.instance.OnVrPlayerDeath();
+                }
+                else
+                {
+                    newpos = RespawnManager.instance.OnPcPlayerDeath();
+                }
+                prefab.transform.position = newpos;
+            }
+            health = maxHealth;
+            if(ownedShield != null)
+            {
+                ownedShield.health = ownedShield.maxHealth;
+                ownedShield.gameObject.SetActive(true);
+            }
+        }
+
     }
     public void Hurt()
     {
-        if(dmgTaken != null)
+        if (dmgTaken != null)
         {
             dmgTaken.Play();
         }
@@ -157,11 +161,11 @@ public class BulletTarget : MonoBehaviourPunCallbacks
         }
     }
     [PunRPC]
-     void looseLife(float dmg,int photonId)
-     { 
-            var target =PhotonView.Find(photonId).gameObject.GetComponent<BulletTarget>();
-            target.actor.Life -= dmg;
-            target.health -= dmg;
+    void looseLife(float dmg, int photonId)
+    {
+        var target = PhotonView.Find(photonId).gameObject.GetComponent<BulletTarget>();
+        target.actor.Life -= dmg;
+        target.health -= dmg;
 
         /*if (target.health <= 0)
         {
