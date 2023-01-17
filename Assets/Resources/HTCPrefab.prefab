@@ -2452,6 +2452,18 @@ PrefabInstance:
       propertyPath: _rigInfo._rightArmInfo._handUniversalLocalAxes._universalToActualAxesRotation.z
       value: -0.7618673
       objectReference: {fileID: 0}
+    - target: {fileID: 6757250834571619751, guid: e7468ec6b7af89c4d94d451ec3c1807b, type: 3}
+      propertyPath: m_BackGroundColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6757250834571619751, guid: e7468ec6b7af89c4d94d451ec3c1807b, type: 3}
+      propertyPath: m_BackGroundColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6757250834571619751, guid: e7468ec6b7af89c4d94d451ec3c1807b, type: 3}
+      propertyPath: m_BackGroundColor.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6885037373360958367, guid: e7468ec6b7af89c4d94d451ec3c1807b, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
