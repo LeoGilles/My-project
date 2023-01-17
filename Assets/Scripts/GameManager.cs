@@ -89,11 +89,13 @@ public class GameManager : MonoBehaviourPunCallbacks
                 if(GetDeviceUsed() == "HTCPrefab")
                 {
                     GameObject perso = PhotonNetwork.Instantiate("HTCPrefab", new Vector3(0f, 0.2f, 13f),new Quaternion(0, 1, 0, 0), 0);
+                    perso.name = PhotonNetwork.NickName;
                     playerPrefab.Add(perso);
                 }
                 else
                 {
-                     GameObject perso = PhotonNetwork.Instantiate("pcPrefab", new Vector3(0f, 0.2f, -108f), Quaternion.identity, 0);
+                    GameObject perso = PhotonNetwork.Instantiate("pcPrefab", new Vector3(0f, 0.2f, -108f), Quaternion.identity, 0);
+                    perso.name = PhotonNetwork.NickName;
                     playerPrefab.Add(perso);
                 }
                 

@@ -27,9 +27,13 @@ public class BulletTarget : MonoBehaviourPunCallbacks
     void Start()
     {
         health = maxHealth;
+        if(slider != null)
+        {
         slider.maxValue = maxHealth;
         slider.minValue = 0;
         slider.value = maxHealth;
+        }
+
         if(healthBarUi != null)
         {
             healthBarUi.SetActive(false);
@@ -47,7 +51,12 @@ public class BulletTarget : MonoBehaviourPunCallbacks
             photonTemp.RPC("looseLife", RpcTarget.Others, e.Damage, GetComponent<PhotonView>().ViewID);
             actor.Life -= e.Damage;
             health -= e.Damage;
-            
+
+            if (gameObject.tag == "Shield")
+            {
+                gameObject.SetActive(false);
+                return;
+            }
             if (health <= 0)
             {
                 Debug.Log($"{e.ActorSource.name} killed {this.name}");
@@ -62,8 +71,12 @@ public class BulletTarget : MonoBehaviourPunCallbacks
 
         // Update is called once per frame
     void Update()
-    {
-        slider.value = health;
+    {   
+        if(slider != null)
+        {
+            slider.value = health;
+        }
+
         if(textLife != null)
         {
             textLife.text = $"{(int)health}/{(int)maxHealth}";
@@ -84,6 +97,11 @@ public class BulletTarget : MonoBehaviourPunCallbacks
 
         if (health <= 0)
         {
+            if(gameObject.tag == "Shield")
+            {
+                gameObject.SetActive(false);
+                return;
+            }
             if(animator != null)
             {
                 animator.SetLayerWeight(1, Mathf.Lerp(animator.GetLayerWeight(1), 1f, Time.deltaTime * 4f));
