@@ -226,6 +226,9 @@ GameObject:
   - component: {fileID: 551793874794368050}
   - component: {fileID: 204066814342531674}
   - component: {fileID: -3781205736520198980}
+  - component: {fileID: 462675072}
+  - component: {fileID: 462675073}
+  - component: {fileID: 462675074}
   m_Layer: 0
   m_Name: Shield
   m_TagString: Untagged
@@ -240,7 +243,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5478621356185517183}
-  m_LocalRotation: {x: -0.5007847, y: 0.49135447, z: -0.62085617, w: -0.34974736}
+  m_LocalRotation: {x: -0.500787, y: 0.49135277, z: -0.6208565, w: -0.34974566}
   m_LocalPosition: {x: -2.77, y: 0.295, z: -0.37839615}
   m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_ConstrainProportionsScale: 0
@@ -354,7 +357,7 @@ MonoBehaviour:
   _previewGrabPosesMode: 3
   _previewPosesRegenerationType: 0
   _previewPosesRegenerationIndex: -1
-  _selectedAvatarForGrips: {fileID: 0}
+  _selectedAvatarForGrips: {fileID: 5331051335944821690, guid: 7ecf6c6d062056b4db80327dac401947, type: 3}
   _firstGrabPointIsMain: 1
   _grabPoint:
     _editorFoldout: 1
@@ -374,7 +377,12 @@ MonoBehaviour:
     _snapMode: 3
     _snapDirection: 0
     _snapReference: 1
-    _avatarGripPoseEntries: []
+    _avatarGripPoseEntries:
+    - _avatarPrefabGuid: 7ecf6c6d062056b4db80327dac401947
+      _handPose: {fileID: 11400000, guid: 50e73c61f1d966d409da705792e92e86, type: 2}
+      _poseBlendValue: 0
+      _gripAlignTransformHandLeft: {fileID: 1187458538606907313}
+      _gripAlignTransformHandRight: {fileID: 1187458538253911415}
     _alignToController: 0
     _alignToControllerAxes: {fileID: 0}
     _grabProximityMode: 0
@@ -386,7 +394,7 @@ MonoBehaviour:
     _grabberProximityIndex: 0
     _enableOnHandNear: {fileID: 0}
   _additionalGrabPoints: []
-  _useParenting: 1
+  _useParenting: 0
   _autoCreateStartAnchor: 0
   _startAnchor: {fileID: 0}
   _tag: 
@@ -454,3 +462,59 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -1272481795433867914, guid: ccb128f9c280bdd489355b268e636da1, type: 3}
+--- !u!114 &462675072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5478621356185517183}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64179f3720bbfe947b7724caa67b7c1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizeVelocity: 1
+  m_SynchronizeAngularVelocity: 0
+  m_TeleportEnabled: 0
+  m_TeleportIfDistanceGreaterThan: 3
+--- !u!114 &462675073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5478621356185517183}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
+--- !u!114 &462675074
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5478621356185517183}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents:
+  - {fileID: 462675072}
+  - {fileID: 462675073}
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
