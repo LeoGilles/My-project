@@ -41,6 +41,7 @@ public class ScoreManager : MonoBehaviourPunCallbacks
     [PunRPC]
     public void ChangePcKillScore(int point)
     {
+        Debug.Log("feelfreetopray");
         photonView.RPC("RPC_ChangePcKillScore", RpcTarget.All, point);
 
     }
