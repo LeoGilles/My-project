@@ -55,6 +55,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
          }*/
         if(VRController != null && !photonView.IsMine)
         {
+            Debug.Log("bodyreload");
             VRController.SolveBodyIK();
         }
     }
