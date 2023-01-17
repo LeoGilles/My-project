@@ -9,19 +9,6 @@ public class RefreshBodyIK : MonoBehaviourPunCallbacks
 {
     [SerializeField]
     private UxrStandardAvatarController VRController;
-    [SerializeField]
-    private TrackedPoseDriver inputVR;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        inputVR = gameObject.GetComponent<TrackedPoseDriver>();
-        Debug.Log("inputVR "+ inputVR);
-        if (inputVR != null && !photonView.IsMine)
-        {
-            inputVR.enabled = false;
-        }
-    }
 
     // Update is called once per frame
     void Update()

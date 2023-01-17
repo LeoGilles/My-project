@@ -8,6 +8,7 @@ using UnityEngine.InputSystem;
 using UltimateXR.Avatar;
 using UltimateXR.Avatar.Controllers;
 using UltimateXR.Core;
+using UnityEngine.InputSystem.XR;
 
 public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
 {
@@ -39,6 +40,10 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     private UxrStandardAvatarController VRController;
     [SerializeField]
     private Camera cameraMap;
+    [SerializeField]
+    private GameObject CameraControllerVR;
+    [SerializeField]
+    private MonoBehaviour inputVR;
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         /* if (stream.IsWriting)
@@ -135,5 +140,15 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         //this.starterAssetsInputs = GetComponent<StarterAssetsInputs>();
         //this.bulletTarget = GetComponent<BulletTarget>();
     }
-
+    private void Start()
+    {
+        if (CameraControllerVR != null)
+        {
+            CameraControllerVR.SetActive(true);
+        }
+        if(inputVR != null)
+        {
+            inputVR.enabled = photonView.IsMine;
+        }
+    }
 }
