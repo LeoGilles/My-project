@@ -6,8 +6,8 @@ using UltimateXR.Devices;
 using UltimateXR.Devices.Integrations.Oculus;
 using UltimateXR.Manipulation;
 using UnityEngine;
-
-public class MiniMapControllerActivation : MonoBehaviour
+using Photon.Pun;
+public class MiniMapControllerActivation : MonoBehaviourPunCallbacks
 {
     [SerializeField]
     private UxrAvatar avatar;
@@ -31,6 +31,10 @@ public class MiniMapControllerActivation : MonoBehaviour
 
     private void Update()
     {
+        if(photonView.IsMine)
+        {
+
+       
         GrabLeft = UxrGrabManager.Instance.GetObjectBeingGrabbed(avatar, UxrHandSide.Left, out UxrGrabbableObject grabbableObject);
         GrabRight = UxrGrabManager.Instance.GetObjectBeingGrabbed(avatar, UxrHandSide.Right, out UxrGrabbableObject grabbableObject2);
         LeftMap = UxrAvatar.LocalAvatarInput.GetButtonsEvent(UxrHandSide.Left, UxrInputButtons.Button1, UxrButtonEventType.Pressing);
@@ -62,6 +66,7 @@ public class MiniMapControllerActivation : MonoBehaviour
         else
         {
             Shield.SetActive(false);
+        }
         }
     }
 }

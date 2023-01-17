@@ -97,10 +97,6 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         {
             grabManager.enabled = photonView.IsMine;
         }
-        if (VRController != null)
-        {
-            VRController.enabled = photonView.IsMine;
-        }
         if (cameraMap != null)
         {
             cameraMap.enabled = photonView.IsMine;
