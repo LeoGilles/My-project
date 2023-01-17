@@ -13,6 +13,15 @@ public class ScoreManager : MonoBehaviour
 
     private int winScore = 3;
 
+
+    [SerializeField] private TextMeshProUGUI pcCaptureScoreText;
+    [SerializeField] private TextMeshProUGUI vrCaptureScoreText;
+
+    private float pcCaptureScore = 0f;
+    private float vrCaptureScore = 0f;
+
+    private float winCaptureScore = 20f;
+
     [SerializeField] private TextMeshProUGUI endText;
 
     public static ScoreManager Instance;
@@ -47,6 +56,31 @@ public class ScoreManager : MonoBehaviour
         vrKillScoreText.SetText(vrKillScore.ToString());
 
         if(vrKillScore >= winScore)
+        {
+            OnWin("Congratulation VR TEAM WIN");
+        }
+    }
+
+    public void ChangeCaptureScore(float pcScore, float vrScore)
+    {
+        pcCaptureScore+= pcScore;
+        vrCaptureScore += vrScore;
+
+        pcCaptureScoreText.SetText(Mathf.Round(pcCaptureScore).ToString());
+        vrCaptureScoreText.SetText(Mathf.Round(vrCaptureScore).ToString());
+
+        if (pcCaptureScore >= winCaptureScore)
+        {
+            if (pcCaptureScore > vrCaptureScore)
+            {
+                OnWin("Congratulation PC TEAM WIN");
+            }
+            else
+            {
+                OnWin("Congratulation VR TEAM WIN");
+            }
+        }
+        else if (vrCaptureScore >= winCaptureScore)
         {
             OnWin("Congratulation VR TEAM WIN");
         }
