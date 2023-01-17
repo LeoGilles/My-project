@@ -1922,6 +1922,7 @@ MonoBehaviour:
   died: {fileID: 7828722550611798984}
   isVR: 0
   prefab: {fileID: 879032926313050567}
+  ownedShield: {fileID: 0}
 --- !u!114 &1286648226361259276
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2086,6 +2087,8 @@ MonoBehaviour:
   VRAvatar: {fileID: 0}
   VRController: {fileID: 0}
   cameraMap: {fileID: 2425495312908963474}
+  CameraControllerVR: {fileID: 0}
+  inputVR: {fileID: 0}
 --- !u!114 &879032926313050571 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3329475060865191133, guid: 0f453c2f891e4a4419de78102ce47ef2, type: 3}
