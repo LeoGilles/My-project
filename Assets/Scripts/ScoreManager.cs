@@ -11,6 +11,10 @@ public class ScoreManager : MonoBehaviour
     private int pcKillScore=0;
     private int vrKillScore=0;
 
+    private int winScore = 3;
+
+    [SerializeField] private TextMeshProUGUI endText;
+
     public static ScoreManager Instance;
 
     private void Awake()
@@ -29,11 +33,37 @@ public class ScoreManager : MonoBehaviour
     {
         pcKillScore += point;
         pcKillScoreText.SetText(pcKillScore.ToString());
+
+        if (pcKillScore >= winScore)
+        {
+            OnWin("Congratulation PC TEAM WIN");
+        }
+
     }
 
     public void ChangeVrKillScore(int point)
     {
         vrKillScore += point;
-        vrKillScoreText.SetText(pcKillScore.ToString());
+        vrKillScoreText.SetText(vrKillScore.ToString());
+
+        if(vrKillScore >= winScore)
+        {
+            OnWin("Congratulation VR TEAM WIN");
+        }
+    }
+
+    private void OnWin(string winningTeamName)
+    {
+        Debug.Log(winningTeamName);
+        endText.text = winningTeamName;
+        endText.gameObject.SetActive(true);
+        StartCoroutine(GoToCredit());
+    }
+
+    private IEnumerator GoToCredit()
+    {
+        yield return new WaitForSeconds(3f);
+        endText.gameObject.SetActive(false);
+        GameOverManager.Instance.StartCredit();
     }
 }

@@ -23,6 +23,9 @@ public class BulletTarget : MonoBehaviourPunCallbacks
     private AudioSource dmgTaken;
     [SerializeField]
     private AudioSource died;
+
+    [SerializeField] private bool isVR;
+    [SerializeField] GameObject prefab;
     // Start is called before the first frame update
     void Start()
     {
@@ -63,6 +66,12 @@ public class BulletTarget : MonoBehaviourPunCallbacks
         // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            health = 0;
+        }
+
+
         slider.value = health;
         if(textLife != null)
         {
@@ -98,9 +107,18 @@ public class BulletTarget : MonoBehaviourPunCallbacks
             }
             if(photonView != null && photonView.IsMine && gameObject.tag != "NPC")
             {
-                GameManager.Instance.LeaveRoom();
+                Vector3 newpos = Vector3.zero;
+                if (isVR)
+                {
+                    newpos = RespawnManager.instance.OnVrPlayerDeath();
+                }
+                else
+                {
+                    newpos = RespawnManager.instance.OnPcPlayerDeath();
+                }
+                prefab.transform.position = newpos;
             }
-            Destroy(this.gameObject,3f);
+            health = maxHealth;
         }
     }
     public void Hurt()
