@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Photon.Pun;
 
-public class ScoreManager : MonoBehaviour
+public class ScoreManager : MonoBehaviourPunCallbacks
 {
     [SerializeField] private TextMeshProUGUI pcKillScoreText;
     [SerializeField] private TextMeshProUGUI vrKillScoreText;
@@ -37,8 +38,14 @@ public class ScoreManager : MonoBehaviour
             Instance = this;
         }
     }
-
+    [PunRPC]
     public void ChangePcKillScore(int point)
+    {
+        photonView.RPC("RPC_ChangePcKillScore", RpcTarget.All, point);
+
+    }
+
+    private void RPC_ChangePcKillScore(int point)
     {
         pcKillScore += point;
         pcKillScoreText.SetText(pcKillScore.ToString());
@@ -47,8 +54,8 @@ public class ScoreManager : MonoBehaviour
         {
             OnWin("Congratulation PC TEAM WIN");
         }
-
     }
+
 
     public void ChangeVrKillScore(int point)
     {
