@@ -53,11 +53,12 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
              this.starterAssetsInputs.shoot = (bool)stream.ReceiveNext();
              this.bulletTarget.health = (int)stream.ReceiveNext();
          }*/
-        if(VRController != null && !photonView.IsMine)
+      /*  if(VRController != null && !photonView.IsMine)
         {
             Debug.Log("bodyreload");
             VRController.SolveBodyIK();
-        }
+        }*/
+      
     }
   
     // Start is called before the first frame update
@@ -105,6 +106,17 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         {
             grabManager.enabled = photonView.IsMine;
         }*/
+       if(VRAvatar != null)
+        {
+            if(photonView.IsMine)
+            {
+                VRAvatar.AvatarMode = UxrAvatarMode.Local;
+            }
+            else
+            {
+                VRAvatar.AvatarMode = UxrAvatarMode.UpdateExternally;
+            }
+        }
         if (cameraMap != null)
         {
             cameraMap.enabled = photonView.IsMine;

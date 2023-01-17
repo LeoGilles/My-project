@@ -1376,6 +1376,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0.23209743
       objectReference: {fileID: 0}
+    - target: {fileID: 2034712730382474750, guid: e7468ec6b7af89c4d94d451ec3c1807b, type: 3}
+      propertyPath: VRController
+      value: 
+      objectReference: {fileID: 1997151485892120699}
     - target: {fileID: 2139817337809834114, guid: e7468ec6b7af89c4d94d451ec3c1807b, type: 3}
       propertyPath: m_LocalRotation.w
       value: 0.97663146
@@ -3173,6 +3177,24 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 9042948311470002378, guid: e7468ec6b7af89c4d94d451ec3c1807b, type: 3}
   m_PrefabInstance: {fileID: 3760798882848394697}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2394144462108014608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5282171762740436227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a2a9c34df4095f47b9ca8f975175f5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Device: 0
+  m_PoseSource: 2
+  m_PoseProviderComponent: {fileID: 0}
+  m_TrackingType: 0
+  m_UpdateType: 0
+  m_UseRelativeTransform: 0
 --- !u!114 &2722145546463048973
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3188,7 +3210,7 @@ MonoBehaviour:
   m_SynchronizePosition: 1
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
-  m_UseLocal: 0
+  m_UseLocal: 1
 --- !u!114 &8777323128193778858
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3388,7 +3410,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraController: {fileID: 0}
-  cameraObj: {fileID: 7635740458316406894}
+  cameraObj: {fileID: 0}
   cameraFollow: {fileID: 0}
   cameraAim: {fileID: 0}
   thirdPersonShooter: {fileID: 0}
@@ -3466,11 +3488,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53722f72346fa6848ae1386be516505b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!20 &7635740458316406894 stripped
-Camera:
-  m_CorrespondingSourceObject: {fileID: 6757250834571619751, guid: e7468ec6b7af89c4d94d451ec3c1807b, type: 3}
-  m_PrefabInstance: {fileID: 3760798882848394697}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &7722569808878471651 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6853668274677662762, guid: e7468ec6b7af89c4d94d451ec3c1807b, type: 3}
