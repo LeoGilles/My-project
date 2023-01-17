@@ -33,7 +33,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     [SerializeField]
     private GrabManager grabManager;
     [SerializeField]
-    private UxrStandardAvatarController VRController;
+    private UxrAvatar VRController;
     [SerializeField]
     private Camera cameraMap;
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
@@ -96,6 +96,10 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         if (grabManager != null)
         {
             grabManager.enabled = photonView.IsMine;
+        }
+        if (VRController != null)
+        {
+            VRController.enabled = photonView.IsMine;
         }
         if (cameraMap != null)
         {
