@@ -72,6 +72,8 @@ public class ContaminationArea : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            Debug.Log("test");
+
             inTimer += Time.deltaTime;
             if (inTimer > maxInTimer)
             {
