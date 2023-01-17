@@ -617,8 +617,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f13c43249098d9d4dace87bd965d8142, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anchor: {fileID: 0}
-  triangle: {fileID: 0}
+  anchor: {fileID: 454297227049030365}
+  triangle: {fileID: 2218855964099424145}
 --- !u!1 &4128029063597645890
 GameObject:
   m_ObjectHideFlags: 0
