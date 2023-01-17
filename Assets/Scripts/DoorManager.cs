@@ -40,4 +40,12 @@ public class DoorManager : MonoBehaviour
 
         }
     }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            animator.SetBool("IsOpen", true);
+        }
+    }
 }
