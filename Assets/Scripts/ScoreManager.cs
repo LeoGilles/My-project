@@ -47,6 +47,8 @@ public class ScoreManager : MonoBehaviourPunCallbacks
 
     private void RPC_ChangePcKillScore(int point)
     {
+        Debug.Log("feelfreetodie");
+
         pcKillScore += point;
         pcKillScoreText.SetText(pcKillScore.ToString());
 
