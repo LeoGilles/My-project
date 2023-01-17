@@ -23,6 +23,9 @@ public class BulletTarget : MonoBehaviourPunCallbacks
     private AudioSource dmgTaken;
     [SerializeField]
     private AudioSource died;
+
+    [SerializeField] private bool isVR;
+    [SerializeField] GameObject prefab;
     // Start is called before the first frame update
     void Start()
     {
@@ -69,56 +72,74 @@ public class BulletTarget : MonoBehaviourPunCallbacks
         }
     }
 
-        // Update is called once per frame
+    // Update is called once per frame
     void Update()
-    {   
-        if(slider != null)
+    {
+        if (Input.GetKeyDown(KeyCode.K))
         {
-            slider.value = health;
+            health = 0;
         }
 
-        if(textLife != null)
-        {
-            textLife.text = $"{(int)health}/{(int)maxHealth}";
-        }
 
-        if (health < maxHealth)
+        slider.value = health;
         {
-            if(healthBarUi != null)
+            if (slider != null)
             {
-                healthBarUi.SetActive(true);
+                slider.value = health;
             }
-        }
 
-        if (health > maxHealth)
-        {
-            health = maxHealth;
-        }
+            if (textLife != null)
+            {
+                textLife.text = $"{(int)health}/{(int)maxHealth}";
+            }
 
-        if (health <= 0)
-        {
-            if(gameObject.tag == "Shield")
+            if (health < maxHealth)
             {
-                gameObject.SetActive(false);
-                return;
+                if (healthBarUi != null)
+                {
+                    healthBarUi.SetActive(true);
+                }
             }
-            if(animator != null)
+
+            if (health > maxHealth)
             {
-                animator.SetLayerWeight(1, Mathf.Lerp(animator.GetLayerWeight(1), 1f, Time.deltaTime * 4f));
+                health = maxHealth;
             }
-            if (healthBarUi != null)
+
+            if (health <= 0)
             {
-                healthBarUi.SetActive(false);
+                if (gameObject.tag == "Shield")
+                {
+                    gameObject.SetActive(false);
+                    return;
+                }
+                if (animator != null)
+                {
+                    animator.SetLayerWeight(1, Mathf.Lerp(animator.GetLayerWeight(1), 1f, Time.deltaTime * 4f));
+                }
+                if (healthBarUi != null)
+                {
+                    healthBarUi.SetActive(false);
+                }
+                if (capsCollider != null)
+                {
+                    capsCollider.enabled = false;
+                }
+                if (photonView != null && photonView.IsMine && gameObject.tag != "NPC")
+                {
+                    Vector3 newpos = Vector3.zero;
+                    if (isVR)
+                    {
+                        newpos = RespawnManager.instance.OnVrPlayerDeath();
+                    }
+                    else
+                    {
+                        newpos = RespawnManager.instance.OnPcPlayerDeath();
+                    }
+                    prefab.transform.position = newpos;
+                }
+                health = maxHealth;
             }
-            if (capsCollider != null)
-            {
-                capsCollider.enabled = false;    
-            }
-            if(photonView != null && photonView.IsMine && gameObject.tag != "NPC")
-            {
-                GameManager.Instance.LeaveRoom();
-            }
-            Destroy(this.gameObject,3f);
         }
     }
     public void Hurt()

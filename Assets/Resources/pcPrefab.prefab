@@ -1920,6 +1920,8 @@ MonoBehaviour:
   actor: {fileID: 1286648226361259276}
   dmgTaken: {fileID: 6615263094259467455}
   died: {fileID: 7828722550611798984}
+  isVR: 0
+  prefab: {fileID: 879032926313050567}
 --- !u!114 &1286648226361259276
 MonoBehaviour:
   m_ObjectHideFlags: 0
