@@ -59,13 +59,19 @@ public class ScoreManager : MonoBehaviourPunCallbacks
         }
     }
 
-
+    [PunRPC]
     public void ChangeVrKillScore(int point)
+    {
+        Debug.Log("feelfreetopray");
+        photonView.RPC("RPC_ChangeVrKillScore", RpcTarget.All, point);
+    }
+
+    public void RPC_ChangeVrKillScore(int point)
     {
         vrKillScore += point;
         vrKillScoreText.SetText(vrKillScore.ToString());
 
-        if(vrKillScore >= winScore)
+        if (vrKillScore >= winScore)
         {
             OnWin("Congratulation VR TEAM WIN");
         }
