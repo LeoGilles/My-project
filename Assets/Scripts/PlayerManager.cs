@@ -33,7 +33,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     [SerializeField]
     private GrabManager grabManager;
     [SerializeField]
-    private UxrStandardAvatarController VRController;
+    private UxrAvatar VRController;
     [SerializeField]
     private Camera cameraMap;
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)

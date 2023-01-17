@@ -6,24 +6,28 @@ using TMPro;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
+using Photon.Pun;
 
 public class LoadLevelAR : MonoBehaviour
 {
-    public TextAsset PathJsonARVR;
+    public string PathJsonARVR;
     public GameObject Level;
     public List<GameObject> Prefabs;
     public List<string> PrefabNames;
     // Start is called before the first frame update
     void Start()
     {
-        string ARjsonContent = PathJsonARVR.text;
+        string ARjsonContent = File.ReadAllText(Path.Combine(Application.streamingAssetsPath, PathJsonARVR));
         listPin jsonData = JsonUtility.FromJson<listPin>(ARjsonContent);
         foreach (var pin in jsonData.Pins)
         {
             try
             {
-                var instPin = Instantiate(Prefabs[PrefabNames.IndexOf(pin.name)], Level.transform);
-                instPin.name = pin.name;
+                GameObject instPin;
+                if(Prefabs[PrefabNames.IndexOf(pin.name)].name == "Grenade")
+                    instPin = PhotonNetwork.Instantiate(Prefabs[PrefabNames.IndexOf(pin.name)].name, Level.transform.position, Quaternion.identity);
+                else
+                    instPin = Instantiate(Prefabs[PrefabNames.IndexOf(pin.name)], Level.transform);
                 instPin.transform.position = pin.position;
             }
             catch (ArgumentOutOfRangeException e)
