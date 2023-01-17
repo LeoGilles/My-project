@@ -24,7 +24,10 @@ public class ThirdPersonShooter : MonoBehaviourPunCallbacks
     private Transform spawnBulletPosition;
     [SerializeField]
     private AudioSource audioBullet;
+    [SerializeField]
+    private float fireRate = 1.5f;
 
+    private bool canShoot = true;
     private ThirdPersonController thirdPersonController;
     private StarterAssetsInputs starterAssetsInputs;
     private Animator animator;
@@ -33,69 +36,76 @@ public class ThirdPersonShooter : MonoBehaviourPunCallbacks
     private void Awake()
     {
 
-            thirdPersonController = GetComponent<ThirdPersonController>();
-            starterAssetsInputs = GetComponent<StarterAssetsInputs>();
-            animator = GetComponent<Animator>();
-        
+        thirdPersonController = GetComponent<ThirdPersonController>();
+        starterAssetsInputs = GetComponent<StarterAssetsInputs>();
+        animator = GetComponent<Animator>();
+
     }
 
 
     private void Update()
     {
-            if (!photonView.IsMine) return;
-            Vector3 mouseWorldPosition = Vector3.zero;
-            Vector2 screenCenterPoint = new(Screen.width / 2f, Screen.height / 2f);
-            Ray ray = Camera.main.ScreenPointToRay(screenCenterPoint);
-            if (Physics.Raycast(ray, out RaycastHit raycastHit, 999f, aimColliderLayerMask))
+        if (!photonView.IsMine) return;
+        Vector3 mouseWorldPosition = Vector3.zero;
+        Vector2 screenCenterPoint = new(Screen.width / 2f, Screen.height / 2f);
+        Ray ray = Camera.main.ScreenPointToRay(screenCenterPoint);
+        if (Physics.Raycast(ray, out RaycastHit raycastHit, 999f, aimColliderLayerMask))
+        {
+            debugTransform.position = raycastHit.point;
+            mouseWorldPosition = raycastHit.point;
+        }
+
+        if (starterAssetsInputs.aim)
+        {
+            aimVirtualCamera.gameObject.SetActive(true);
+            thirdPersonController.SetSensitivity(aimSensitivity);
+            thirdPersonController.SetRotateOnMove(false);
+
+            Vector3 worldAimTarget = mouseWorldPosition;
+            worldAimTarget.y = transform.position.y;
+            Vector3 aimDirection = (worldAimTarget - transform.position).normalized;
+            transform.forward = Vector3.Lerp(transform.forward, aimDirection, Time.deltaTime * 20f);
+            animator.SetLayerWeight(1, Mathf.Lerp(animator.GetLayerWeight(1), 1f, Time.deltaTime * 10f));
+        }
+        else
+        {
+            aimVirtualCamera.gameObject.SetActive(false);
+            thirdPersonController.SetSensitivity(normalSensitivity);
+            thirdPersonController.SetRotateOnMove(true);
+            animator.SetLayerWeight(1, Mathf.Lerp(animator.GetLayerWeight(1), 0f, Time.deltaTime * 10f));
+        }
+
+        if (starterAssetsInputs.shoot && !starterAssetsInputs.menu && canShoot)
+        {
+            canShoot = false;
+            Vector3 aimDir = (mouseWorldPosition - spawnBulletPosition.position).normalized;
+
+            thirdPersonController.SetRotateOnMove(false);
+            Vector3 worldAimTarget = mouseWorldPosition;
+            worldAimTarget.y = transform.position.y;
+            Vector3 aimDirection = (worldAimTarget - transform.position).normalized;
+            transform.forward = Vector3.Lerp(transform.forward, aimDirection, Time.deltaTime * 100f);
+            thirdPersonController.SetRotateOnMove(true);
+
+            //Instantiate(bulletProjectile, spawnBulletPosition.position, Quaternion.LookRotation(aimDir, Vector3.up));
+            photonView.RPC("Shoot", RpcTarget.AllViaServer, spawnBulletPosition.position, aimDir, PhotonNetwork.NickName);
+            if (audioBullet != null)
             {
-                debugTransform.position = raycastHit.point;
-                mouseWorldPosition = raycastHit.point;
-            }
-
-            if (starterAssetsInputs.aim)
-            {
-                aimVirtualCamera.gameObject.SetActive(true);
-                thirdPersonController.SetSensitivity(aimSensitivity);
-                thirdPersonController.SetRotateOnMove(false);
-
-                Vector3 worldAimTarget = mouseWorldPosition;
-                worldAimTarget.y = transform.position.y;
-                Vector3 aimDirection = (worldAimTarget - transform.position).normalized;
-                transform.forward = Vector3.Lerp(transform.forward, aimDirection, Time.deltaTime * 20f);
-                animator.SetLayerWeight(1, Mathf.Lerp(animator.GetLayerWeight(1), 1f, Time.deltaTime * 10f));
-            }
-            else
-            {
-                aimVirtualCamera.gameObject.SetActive(false);
-                thirdPersonController.SetSensitivity(normalSensitivity);
-                thirdPersonController.SetRotateOnMove(true);
-                animator.SetLayerWeight(1, Mathf.Lerp(animator.GetLayerWeight(1), 0f, Time.deltaTime * 10f));
-            }
-
-            if (starterAssetsInputs.shoot && !starterAssetsInputs.menu)
-            {
-                Vector3 aimDir = (mouseWorldPosition - spawnBulletPosition.position).normalized;
-
-                thirdPersonController.SetRotateOnMove(false);
-                Vector3 worldAimTarget = mouseWorldPosition;
-                worldAimTarget.y = transform.position.y;
-                Vector3 aimDirection = (worldAimTarget - transform.position).normalized;
-                transform.forward = Vector3.Lerp(transform.forward, aimDirection, Time.deltaTime * 100f);
-                thirdPersonController.SetRotateOnMove(true);
-
-                //Instantiate(bulletProjectile, spawnBulletPosition.position, Quaternion.LookRotation(aimDir, Vector3.up));
-                photonView.RPC("Shoot",RpcTarget.AllViaServer,spawnBulletPosition.position, aimDir,PhotonNetwork.NickName);
-                if(audioBullet != null)
-                {
                 audioBullet.Play();
-                }
-                starterAssetsInputs.shoot = false;
             }
-        
-    }
+            StartCoroutine(CoolDown(fireRate));
+            starterAssetsInputs.shoot = false;
+        }
 
+    }
+    IEnumerator CoolDown(float CD)
+    {
+        yield return new WaitForSeconds(CD);
+        Debug.Log("shootcc");
+        canShoot = true;
+    }
     [PunRPC]
-    void Shoot(Vector3 position, Vector3 aimDir,string nickname, PhotonMessageInfo info)
+    void Shoot(Vector3 position, Vector3 aimDir, string nickname, PhotonMessageInfo info)
     {
 
         // Tips for Photon lag compensation. Il faut compenser le temps de lag pour l'envoi du message.
