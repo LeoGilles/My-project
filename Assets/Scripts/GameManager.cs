@@ -14,6 +14,10 @@ public class GameManager : MonoBehaviourPunCallbacks
     public static GameManager Instance;
     public List<GameObject> playerPrefab;
 
+    public List<GameObject> pcPlayer;
+    public List<GameObject> vrPlayer;
+
+
     [Tooltip("The prefab to use for representing the player")]
     public GameObject pcPrefab;
     [Tooltip("The prefab to use for representing the VRplayer")]
@@ -90,11 +94,13 @@ public class GameManager : MonoBehaviourPunCallbacks
                 {
                     GameObject perso = PhotonNetwork.Instantiate("HTCPrefab", new Vector3(0f, 0.2f, 13f),new Quaternion(0, 1, 0, 0), 0);
                     playerPrefab.Add(perso);
+                    vrPlayer.Add(perso);
                 }
                 else
                 {
                      GameObject perso = PhotonNetwork.Instantiate("pcPrefab", new Vector3(0f, 0.2f, -108f), Quaternion.identity, 0);
                     playerPrefab.Add(perso);
+                    pcPlayer.Add(perso);
                 }
                 
             }
