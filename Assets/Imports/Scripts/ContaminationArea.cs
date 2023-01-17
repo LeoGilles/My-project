@@ -73,7 +73,15 @@ public class ContaminationArea : MonoBehaviour
             inTimer += Time.deltaTime;
             if (inTimer > maxInTimer)
             {
-                BelongsToScientists();
+                if (GameManager.Instance.pcPlayer.Contains(other.gameObject))
+                {
+                    BelongsToScientists();
+                }
+                else if (GameManager.Instance.vrPlayer.Contains(other.gameObject))
+                {
+                    BelongsToVirus();
+                }
+                
             }
         }
     }
