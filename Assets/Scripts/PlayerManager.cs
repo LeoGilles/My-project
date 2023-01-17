@@ -7,6 +7,7 @@ using Cinemachine;
 using UnityEngine.InputSystem;
 using UltimateXR.Avatar;
 using UltimateXR.Avatar.Controllers;
+using UltimateXR.Core;
 
 public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
 {
@@ -33,25 +34,31 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     [SerializeField]
     private GrabManager grabManager;
     [SerializeField]
-    private UxrAvatar VRController;
+    private UxrAvatar VRAvatar;
+    [SerializeField]
+    private UxrStandardAvatarController VRController;
     [SerializeField]
     private Camera cameraMap;
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
-       /* if (stream.IsWriting)
+        /* if (stream.IsWriting)
+         {
+             // We own this player: send the others our data
+             stream.SendNext(starterAssetsInputs.shoot);
+             stream.SendNext(bulletTarget.health);
+         }
+         else
+         {
+             // Network player, receive data
+             this.starterAssetsInputs.shoot = (bool)stream.ReceiveNext();
+             this.bulletTarget.health = (int)stream.ReceiveNext();
+         }*/
+        if(VRController != null && !photonView.IsMine)
         {
-            // We own this player: send the others our data
-            stream.SendNext(starterAssetsInputs.shoot);
-            stream.SendNext(bulletTarget.health);
+            VRController.SolveBodyIK();
         }
-        else
-        {
-            // Network player, receive data
-            this.starterAssetsInputs.shoot = (bool)stream.ReceiveNext();
-            this.bulletTarget.health = (int)stream.ReceiveNext();
-        }*/
     }
-
+  
     // Start is called before the first frame update
     void Awake()
     {
@@ -93,14 +100,10 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         {
             cameraAim.enabled = photonView.IsMine;
         }
-        if (grabManager != null)
+       /* if (grabManager != null)
         {
             grabManager.enabled = photonView.IsMine;
-        }
-        if (VRController != null)
-        {
-            VRController.enabled = photonView.IsMine;
-        }
+        }*/
         if (cameraMap != null)
         {
             cameraMap.enabled = photonView.IsMine;

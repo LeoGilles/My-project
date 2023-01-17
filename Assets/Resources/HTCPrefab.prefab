@@ -1332,6 +1332,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: ad322e721b4fae841a0f3eb235db1e2f, type: 2}
+    - target: {fileID: 3424499442519317938, guid: e7468ec6b7af89c4d94d451ec3c1807b, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3442934758813124572, guid: e7468ec6b7af89c4d94d451ec3c1807b, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -1706,7 +1710,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6665688241830784974, guid: e7468ec6b7af89c4d94d451ec3c1807b, type: 3}
       propertyPath: _rigFoldout
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6665688241830784974, guid: e7468ec6b7af89c4d94d451ec3c1807b, type: 3}
       propertyPath: _parentPrefab
@@ -2681,6 +2685,17 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &1997151485892120699 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3424499442519317938, guid: e7468ec6b7af89c4d94d451ec3c1807b, type: 3}
+  m_PrefabInstance: {fileID: 3760798882848394697}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5331051335944821690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eed24b4dea1e5534ba091b2188144a9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2319269194239742264 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1449800243128818929, guid: e7468ec6b7af89c4d94d451ec3c1807b, type: 3}
@@ -3240,7 +3255,8 @@ MonoBehaviour:
   playerInput: {fileID: 0}
   audio: {fileID: 6719586999680963178}
   grabManager: {fileID: 2168409872529510076}
-  VRController: {fileID: 7543602541520429575}
+  VRAvatar: {fileID: 7543602541520429575}
+  VRController: {fileID: 1997151485892120699}
   cameraMap: {fileID: 7715968093875531980}
 --- !u!4 &5425498930083760563 stripped
 Transform:
