@@ -3184,6 +3184,7 @@ MonoBehaviour:
   tpLeft: {fileID: 2926840125888312211}
   tpRight: {fileID: 7722569808878471651}
   prefabAnimation: {fileID: 9027514048236820045, guid: effb650189dc5714e9e9801b1cfb3991, type: 3}
+  cooldown: 1
 --- !u!114 &7147145809897091009
 MonoBehaviour:
   m_ObjectHideFlags: 0
