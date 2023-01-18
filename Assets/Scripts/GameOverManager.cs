@@ -69,5 +69,12 @@ public class GameOverManager : MonoBehaviourPunCallbacks
     public void RPC_Reset()
     {
         Reset();
+        StartCoroutine(Disconnect());
     }
+
+    private IEnumerator Disconnect()
+    {
+        yield return new WaitForSeconds(1f);
+        PhotonNetwork.Disconnect();
+    } 
 }
