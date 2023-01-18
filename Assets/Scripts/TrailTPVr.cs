@@ -15,7 +15,7 @@ public class TrailTPVr : MonoBehaviourPunCallbacks
     [SerializeField]
     private GameObject prefabAnimation;
     private bool canTP = true;
-    public int cooldown = 1;
+    public float cooldown = 2;
 
     // Start is called before the first frame update
     void Start()

@@ -389,6 +389,24 @@ MonoBehaviour:
   - CylinderContArea(Clone)
   - CylinderThrowable(Clone)
   - CylinderSpawn(Clone)
+--- !u!1 &421393242 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 425087233324415050, guid: dced78d759286c04fa89c7de05127bd0, type: 3}
+  m_PrefabInstance: {fileID: 633316078}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &421393243
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 421393242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cdfb6fe4d2878644ae00a9e79f84eec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textJSON: {fileID: 4900000, guid: 6b39d80387ee6024b945a53804d1670f, type: 3}
 --- !u!1001 &633316078
 PrefabInstance:
   m_ObjectHideFlags: 0

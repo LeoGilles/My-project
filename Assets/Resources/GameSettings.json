@@ -1,7 +1,7 @@
 {
   "InitialHealth": 100,
   "FireDelay": 0.1,
-  "TeleportDelay": 2,
+  "TeleportDelay": 1,
   "VirusShotColor": "#ffffff",
   "PcShotColor": "#eeeeee",
   "NbContaminatedPlayerToWin": 2,

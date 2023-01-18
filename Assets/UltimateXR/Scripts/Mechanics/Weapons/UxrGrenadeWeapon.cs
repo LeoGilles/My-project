@@ -40,7 +40,7 @@ namespace UltimateXR.Mechanics.Weapons
         [SerializeField] private float        _explosionPrefabLife = 4.0f;
 
         // Damage
-        [SerializeField] private float _damageRadius = 10.0f;
+        public float _damageRadius = 10.0f;
         [SerializeField] private float _damageNear   = 10.0f;
         [SerializeField] private float _damageFar;
 

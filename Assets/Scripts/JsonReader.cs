@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UltimateXR.Mechanics.Weapons;
 using UnityEngine;
 
 public class JsonReader : MonoBehaviour
@@ -16,7 +17,7 @@ public class JsonReader : MonoBehaviour
         public string VirusShotColor;
         public string PcShotColor;
         public int NbContaminatedPlayerToWin;
-        public string RadiusExplosion;
+        public float RadiusExplosion;
         public int TimeToContaminate;
     }
 
@@ -25,10 +26,22 @@ public class JsonReader : MonoBehaviour
     void Awake()
     {
         settings = JsonUtility.FromJson<Settings>(textJSON.text);
+        var test = GetComponent<UxrGrenadeWeapon>();
+        if (test != null)
+        {
+            test._damageRadius = settings.RadiusExplosion;
+        }
+        var tp = GetComponent<TrailTPVr>();
+        if (tp != null)
+        {
+            tp.cooldown = settings.TeleportDelay;
+        }
     }
 
     public Settings GetSettings()
     {
         return settings;
     }
+
+
 }
