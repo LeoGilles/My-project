@@ -24,7 +24,7 @@ public class BulletTarget : MonoBehaviourPunCallbacks
     [SerializeField]
     private AudioSource died;
 
-    [SerializeField] private bool isVR;
+    public bool isVR;
     [SerializeField] Transform racine;
     [SerializeField] BulletTarget ownedShield;
     // Start is called before the first frame update
@@ -51,25 +51,28 @@ public class BulletTarget : MonoBehaviourPunCallbacks
         var photonTemp = e.ActorSource.gameObject.GetComponent<PhotonView>();
         if (photonTemp.IsMine)
         {
+            if (!isVR)
+            {
+                photonTemp.RPC("looseLife", RpcTarget.Others, e.Damage, GetComponent<PhotonView>().ViewID);
+                actor.Life -= e.Damage;
+                health -= e.Damage;
 
-            photonTemp.RPC("looseLife", RpcTarget.Others, e.Damage, GetComponent<PhotonView>().ViewID);
-            actor.Life -= e.Damage;
-            health -= e.Damage;
+                if (gameObject.tag == "Shield")
+                {
+                    gameObject.SetActive(false);
+                    return;
+                }
+                if (health <= 0)
+                {
+                    Debug.Log($"{e.ActorSource.name} killed {this.name}");
+                    Died();
+                }
+                else
+                {
+                    Hurt();
+                }
+            }
 
-            if (gameObject.tag == "Shield")
-            {
-                gameObject.SetActive(false);
-                return;
-            }
-            if (health <= 0)
-            {
-                Debug.Log($"{e.ActorSource.name} killed {this.name}");
-                Died();
-            }
-            else
-            {
-                Hurt();
-            }
         }
     }
 
@@ -139,7 +142,7 @@ public class BulletTarget : MonoBehaviourPunCallbacks
                 {
                     newpos = RespawnManager.instance.OnPcPlayerDeath();
                 }
-                photonView.RPC("respawn", RpcTarget.AllViaServer, newpos);            
+                photonView.RPC("respawn", RpcTarget.AllViaServer, newpos);
             }
         }
     }

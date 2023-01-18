@@ -523,6 +523,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 350233010256497801, guid: 307f4ca42bb04cf47befb9c65b86d09e, type: 3}
+      propertyPath: isVR
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 350233010256497802, guid: 307f4ca42bb04cf47befb9c65b86d09e, type: 3}
       propertyPath: m_Name
       value: Banana Man life (1)

@@ -5,7 +5,7 @@ using UnityEngine;
 public class BulletProjectiles : MonoBehaviour
 {
     private Rigidbody bulletRigidBody;
-    [SerializeField] 
+    [SerializeField]
     private Transform sfx;
     public float speed = 40f;
     public float damage = 25;
@@ -24,25 +24,29 @@ public class BulletProjectiles : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
-        Debug.Log("collision"+other.gameObject.name);
+        Debug.Log("collision" + other.gameObject.name);
         BulletTarget target = other.collider.GetComponent<BulletTarget>();
         if (target != null)
         {
-            target.health -= damage;
-            if(target.health <= 0)
+            if (target.isVR)
             {
-                target.Died();
+                target.health -= damage;
+                if (target.health <= 0)
+                {
+                    target.Died();
+                }
+                else
+                {
+                    target.Hurt();
+                }
             }
-            else
-            {
-                target.Hurt();
-            }
+
         }
         else
         {
-           
+
         }
-        Instantiate(sfx, transform.position, Quaternion.identity);   
+        Instantiate(sfx, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
 }
