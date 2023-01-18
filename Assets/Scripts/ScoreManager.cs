@@ -41,14 +41,14 @@ public class ScoreManager : MonoBehaviourPunCallbacks
     
     public void ChangePcKillScore(int point)
     {
-        photonView.RPC("RPC_ChangePcKillScore", RpcTarget.All, point);
+        pcKillScore += point;
+        photonView.RPC("RPC_ChangePcKillScore", RpcTarget.All, pcKillScore);
 
     }
     [PunRPC]
     private void RPC_ChangePcKillScore(int point)
     {
-
-        pcKillScore += point;
+        pcKillScore = point;
         pcKillScoreText.SetText(pcKillScore.ToString());
 
         if (pcKillScore >= winScore)
@@ -60,13 +60,14 @@ public class ScoreManager : MonoBehaviourPunCallbacks
     
     public void ChangeVrKillScore(int point)
     {
-        photonView.RPC("RPC_ChangeVrKillScore", RpcTarget.All, point);
+        vrKillScore += point;
+        photonView.RPC("RPC_ChangeVrKillScore", RpcTarget.All, vrKillScore);
     }
 
     [PunRPC]
     public void RPC_ChangeVrKillScore(int point)
     {
-        vrKillScore += point;
+        vrKillScore = point;
         vrKillScoreText.SetText(vrKillScore.ToString());
 
         if (vrKillScore >= winScore)
@@ -77,14 +78,16 @@ public class ScoreManager : MonoBehaviourPunCallbacks
 
     public void ChangeCaptureScore(float pcScore, float vrScore)
     {
-        photonView.RPC("RPC_ChangeCaptureScore", RpcTarget.All, pcScore, vrScore);
+        pcCaptureScore += pcScore;
+        vrCaptureScore += vrScore;
+        photonView.RPC("RPC_ChangeCaptureScore", RpcTarget.All, pcCaptureScore, vrCaptureScore);
     }
 
     [PunRPC]
     public void RPC_ChangeCaptureScore(float pcScore, float vrScore)
     {
-        pcCaptureScore+= pcScore;
-        vrCaptureScore += vrScore;
+        pcCaptureScore = pcScore;
+        vrCaptureScore = vrScore;
 
         pcCaptureScoreText.SetText(Mathf.Round(pcCaptureScore).ToString());
         vrCaptureScoreText.SetText(Mathf.Round(vrCaptureScore).ToString());
