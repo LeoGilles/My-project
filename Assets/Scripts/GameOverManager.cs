@@ -1,9 +1,10 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameOverManager : MonoBehaviour
+public class GameOverManager : MonoBehaviourPunCallbacks
 {
 
     public static GameOverManager Instance;
@@ -52,7 +53,13 @@ public class GameOverManager : MonoBehaviour
 
     public void StartCredit()
     {
+        photonView.RPC("RPC_StartCredit", RpcTarget.All);
+    }
+    [PunRPC]
+    public void RPC_StartCredit()
+    {
         Reset();
-        SceneManager.LoadScene("Credits");
+        //SceneManager.LoadScene("Credits");
+        PhotonNetwork.LoadLevel(3);
     }
 }

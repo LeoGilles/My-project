@@ -26,6 +26,8 @@ public class ContaminationArea : MonoBehaviour
 
     private CullingGroup cullGroup;
 
+    private int ownerTeam=0;
+
     void Start()
     {
         populateParticleSystemCache();
@@ -69,10 +71,19 @@ public class ContaminationArea : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+
             inTimer += Time.deltaTime;
             if (inTimer > maxInTimer)
             {
-                BelongsToScientists();
+                if (GameManager.Instance.pcPlayer.Contains(other.gameObject))
+                {
+                    BelongsToScientists();
+                }
+                else if (GameManager.Instance.vrPlayer.Contains(other.gameObject))
+                {
+                    BelongsToVirus();
+                }
+                
             }
         }
     }
@@ -88,7 +99,14 @@ public class ContaminationArea : MonoBehaviour
 
     void Update()
     {
-    
+        if (ownerTeam < 0)
+        {
+            ScoreManager.Instance.ChangeCaptureScore(0f,Time.deltaTime);
+        }
+        if (ownerTeam > 0)
+        {
+            ScoreManager.Instance.ChangeCaptureScore(Time.deltaTime, 0f);
+        }
     }
 
     private void ColorParticle(ParticleSystem pSys, Color mainColor, Color accentColor)
@@ -102,16 +120,19 @@ public class ContaminationArea : MonoBehaviour
     public void BelongsToNobody()
     {
         ColorParticle(pSystem, nobody.mainColor, nobody.secondColor);
+        ownerTeam = 0;
     }
 
     public void BelongsToVirus()
     {
         ColorParticle(pSystem, virus.mainColor, virus.secondColor);
+        ownerTeam = -1;
     }
 
     public void BelongsToScientists()
     {
         ColorParticle(pSystem, scientist.mainColor, scientist.secondColor);
+        ownerTeam = 1;
     }
 
     void OnDestroy()
