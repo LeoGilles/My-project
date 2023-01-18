@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Photon.Pun;
 
-public class ScoreManager : MonoBehaviour
+public class ScoreManager : MonoBehaviourPunCallbacks
 {
     [SerializeField] private TextMeshProUGUI pcKillScoreText;
     [SerializeField] private TextMeshProUGUI vrKillScoreText;
@@ -12,6 +13,15 @@ public class ScoreManager : MonoBehaviour
     private int vrKillScore=0;
 
     private int winScore = 3;
+
+
+    [SerializeField] private TextMeshProUGUI pcCaptureScoreText;
+    [SerializeField] private TextMeshProUGUI vrCaptureScoreText;
+
+    private float pcCaptureScore = 0f;
+    private float vrCaptureScore = 0f;
+
+    private float winCaptureScore = 20f;
 
     [SerializeField] private TextMeshProUGUI endText;
 
@@ -28,25 +38,72 @@ public class ScoreManager : MonoBehaviour
             Instance = this;
         }
     }
-
+    
     public void ChangePcKillScore(int point)
     {
         pcKillScore += point;
+        photonView.RPC("RPC_ChangePcKillScore", RpcTarget.All, pcKillScore);
+
+    }
+    [PunRPC]
+    private void RPC_ChangePcKillScore(int point)
+    {
+        pcKillScore = point;
         pcKillScoreText.SetText(pcKillScore.ToString());
 
         if (pcKillScore >= winScore)
         {
             OnWin("Congratulation PC TEAM WIN");
         }
-
     }
 
+    
     public void ChangeVrKillScore(int point)
     {
         vrKillScore += point;
+        photonView.RPC("RPC_ChangeVrKillScore", RpcTarget.All, vrKillScore);
+    }
+
+    [PunRPC]
+    public void RPC_ChangeVrKillScore(int point)
+    {
+        vrKillScore = point;
         vrKillScoreText.SetText(vrKillScore.ToString());
 
-        if(vrKillScore >= winScore)
+        if (vrKillScore >= winScore)
+        {
+            OnWin("Congratulation VR TEAM WIN");
+        }
+    }
+
+    public void ChangeCaptureScore(float pcScore, float vrScore)
+    {
+        pcCaptureScore += pcScore;
+        vrCaptureScore += vrScore;
+        photonView.RPC("RPC_ChangeCaptureScore", RpcTarget.All, pcCaptureScore, vrCaptureScore);
+    }
+
+    [PunRPC]
+    public void RPC_ChangeCaptureScore(float pcScore, float vrScore)
+    {
+        pcCaptureScore = pcScore;
+        vrCaptureScore = vrScore;
+
+        pcCaptureScoreText.SetText(Mathf.Round(pcCaptureScore).ToString());
+        vrCaptureScoreText.SetText(Mathf.Round(vrCaptureScore).ToString());
+
+        if (pcCaptureScore >= winCaptureScore)
+        {
+            if (pcCaptureScore > vrCaptureScore)
+            {
+                OnWin("Congratulation PC TEAM WIN");
+            }
+            else
+            {
+                OnWin("Congratulation VR TEAM WIN");
+            }
+        }
+        else if (vrCaptureScore >= winCaptureScore)
         {
             OnWin("Congratulation VR TEAM WIN");
         }
