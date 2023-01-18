@@ -22,6 +22,7 @@ public class ScoreManager : MonoBehaviourPunCallbacks
     private float vrCaptureScore = 0f;
 
     private float winCaptureScore = 20f;
+    private bool isGameOver = false;
 
     [SerializeField] private TextMeshProUGUI endText;
 
@@ -41,8 +42,12 @@ public class ScoreManager : MonoBehaviourPunCallbacks
     
     public void ChangePcKillScore(int point)
     {
-        pcKillScore += point;
-        photonView.RPC("RPC_ChangePcKillScore", RpcTarget.All, pcKillScore);
+        if (!isGameOver)
+        {
+            pcKillScore += point;
+            photonView.RPC("RPC_ChangePcKillScore", RpcTarget.All, pcKillScore);
+        }
+        
 
     }
     [PunRPC]
@@ -60,8 +65,11 @@ public class ScoreManager : MonoBehaviourPunCallbacks
     
     public void ChangeVrKillScore(int point)
     {
-        vrKillScore += point;
-        photonView.RPC("RPC_ChangeVrKillScore", RpcTarget.All, vrKillScore);
+        if (!isGameOver)
+        {
+            vrKillScore += point;
+            photonView.RPC("RPC_ChangeVrKillScore", RpcTarget.All, vrKillScore);
+        }
     }
 
     [PunRPC]
@@ -78,9 +86,12 @@ public class ScoreManager : MonoBehaviourPunCallbacks
 
     public void ChangeCaptureScore(float pcScore, float vrScore)
     {
-        pcCaptureScore += pcScore;
-        vrCaptureScore += vrScore;
-        photonView.RPC("RPC_ChangeCaptureScore", RpcTarget.All, pcCaptureScore, vrCaptureScore);
+        if (!isGameOver)
+        {
+            pcCaptureScore += pcScore;
+            vrCaptureScore += vrScore;
+            photonView.RPC("RPC_ChangeCaptureScore", RpcTarget.All, pcCaptureScore, vrCaptureScore);
+        }
     }
 
     [PunRPC]
@@ -111,10 +122,14 @@ public class ScoreManager : MonoBehaviourPunCallbacks
 
     private void OnWin(string winningTeamName)
     {
-        Debug.Log(winningTeamName);
-        endText.text = winningTeamName;
-        endText.gameObject.SetActive(true);
-        StartCoroutine(GoToCredit());
+        if (!isGameOver)
+        {
+            isGameOver = true;
+            Debug.Log(winningTeamName);
+            endText.text = winningTeamName;
+            endText.gameObject.SetActive(true);
+            StartCoroutine(GoToCredit());
+        }
     }
 
     private IEnumerator GoToCredit()
