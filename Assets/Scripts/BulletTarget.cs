@@ -25,7 +25,7 @@ public class BulletTarget : MonoBehaviourPunCallbacks
     private AudioSource died;
 
     [SerializeField] private bool isVR;
-    [SerializeField] GameObject prefab;
+    [SerializeField] Transform racine;
     [SerializeField] BulletTarget ownedShield;
     // Start is called before the first frame update
     void Start()
@@ -139,16 +139,9 @@ public class BulletTarget : MonoBehaviourPunCallbacks
                 {
                     newpos = RespawnManager.instance.OnPcPlayerDeath();
                 }
-                prefab.transform.position = newpos;
-                health = maxHealth;
-                if (ownedShield != null)
-                {
-                    ownedShield.health = ownedShield.maxHealth;
-                }
+                photonView.RPC("respawn", RpcTarget.AllViaServer, newpos);            
             }
-
         }
-
     }
     public void Hurt()
     {
@@ -164,6 +157,18 @@ public class BulletTarget : MonoBehaviourPunCallbacks
             died.Play();
         }
     }
+
+    [PunRPC]
+    void respawn(Vector3 pos)
+    {
+        racine.SetPositionAndRotation(pos, racine.rotation);
+        health = maxHealth;
+        if (ownedShield != null)
+        {
+            ownedShield.health = ownedShield.maxHealth;
+        }
+    }
+
     [PunRPC]
     void looseLife(float dmg, int photonId)
     {
