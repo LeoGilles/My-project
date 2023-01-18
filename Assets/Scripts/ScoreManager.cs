@@ -41,14 +41,12 @@ public class ScoreManager : MonoBehaviourPunCallbacks
     
     public void ChangePcKillScore(int point)
     {
-        Debug.Log("feelfreetopray");
         photonView.RPC("RPC_ChangePcKillScore", RpcTarget.All, point);
 
     }
     [PunRPC]
     private void RPC_ChangePcKillScore(int point)
     {
-        Debug.Log("feelfreetodie");
 
         pcKillScore += point;
         pcKillScoreText.SetText(pcKillScore.ToString());
@@ -62,7 +60,6 @@ public class ScoreManager : MonoBehaviourPunCallbacks
     
     public void ChangeVrKillScore(int point)
     {
-        Debug.Log("feelfreetopray");
         photonView.RPC("RPC_ChangeVrKillScore", RpcTarget.All, point);
     }
 
@@ -79,6 +76,12 @@ public class ScoreManager : MonoBehaviourPunCallbacks
     }
 
     public void ChangeCaptureScore(float pcScore, float vrScore)
+    {
+        photonView.RPC("RPC_ChangeCaptureScore", RpcTarget.All, pcScore, vrScore);
+    }
+
+    [PunRPC]
+    public void RPC_ChangeCaptureScore(float pcScore, float vrScore)
     {
         pcCaptureScore+= pcScore;
         vrCaptureScore += vrScore;
