@@ -11,6 +11,13 @@ public class ScaleShield : MonoBehaviour
     void Update()
     {
         float scale = (shieldTarget.health / shieldTarget.maxHealth) * 0.4f;
-        transform.localScale = new Vector3(scale,scale,scale);
+        if(scale <= 0.15)
+        {
+            transform.localScale = new Vector3(0,0,0);
+        }
+        else
+        {
+            transform.localScale = new Vector3(scale,scale,scale);
+        }     
     }
 }

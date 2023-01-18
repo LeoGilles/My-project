@@ -1463,15 +1463,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 434114961, guid: 0f453c2f891e4a4419de78102ce47ef2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.099
+      value: 0.0421
+      objectReference: {fileID: 0}
+    - target: {fileID: 434114961, guid: 0f453c2f891e4a4419de78102ce47ef2, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.4739
       objectReference: {fileID: 0}
     - target: {fileID: 434114961, guid: 0f453c2f891e4a4419de78102ce47ef2, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.789
+      value: 0.6041
       objectReference: {fileID: 0}
     - target: {fileID: 1762682263, guid: 0f453c2f891e4a4419de78102ce47ef2, type: 3}
       propertyPath: fireRate
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 1762682263, guid: 0f453c2f891e4a4419de78102ce47ef2, type: 3}
       propertyPath: audioBullet
@@ -1491,7 +1495,7 @@ PrefabInstance:
       objectReference: {fileID: 5517806601203396478, guid: a7035dd4e385aed479f05c62ae2af9fb, type: 3}
     - target: {fileID: 1762682263, guid: 0f453c2f891e4a4419de78102ce47ef2, type: 3}
       propertyPath: aimColliderLayerMask.m_Bits
-      value: 257
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 1202853523945498866, guid: 0f453c2f891e4a4419de78102ce47ef2, type: 3}
       propertyPath: m_RootOrder
@@ -1569,6 +1573,10 @@ PrefabInstance:
       propertyPath: GroundLayers.m_Bits
       value: 520
       objectReference: {fileID: 0}
+    - target: {fileID: 3329475060865191131, guid: 0f453c2f891e4a4419de78102ce47ef2, type: 3}
+      propertyPath: m_Radius
+      value: 0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 3329475060865191133, guid: 0f453c2f891e4a4419de78102ce47ef2, type: 3}
       propertyPath: m_Actions
       value: 
@@ -1606,7 +1614,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.3
+  m_Radius: 0.25
   m_Height: 1.8
   m_Direction: 1
   m_Center: {x: 0, y: 0.93, z: 0}

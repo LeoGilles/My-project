@@ -55,7 +55,6 @@ public class ContaminationArea : MonoBehaviour
 
     void OnStateChanged(CullingGroupEvent cullEvent)
     {
-        Debug.Log($"cullEvent {cullEvent.isVisible}");
         if (cullEvent.isVisible)
         {
             pSystem.Play(true);

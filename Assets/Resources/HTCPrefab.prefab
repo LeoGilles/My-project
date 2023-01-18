@@ -2149,6 +2149,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: -0.07082356
       objectReference: {fileID: 0}
+    - target: {fileID: 1333949650355697866, guid: e7468ec6b7af89c4d94d451ec3c1807b, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 1369842404745256229, guid: e7468ec6b7af89c4d94d451ec3c1807b, type: 3}
       propertyPath: m_LocalRotation.w
       value: 0.96476835
@@ -4128,7 +4132,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!136 &7379034155551971398
+--- !u!136 &3260613865650945500
 CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4138,10 +4142,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.26504523
-  m_Height: 1.9952242
+  m_Radius: 0.5
+  m_Height: 1.740648
   m_Direction: 1
-  m_Center: {x: 0, y: 0.9946388, z: -0.034954786}
+  m_Center: {x: 0, y: 1.1786531, z: 0}
 --- !u!114 &-5627350662680035979
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4162,7 +4166,7 @@ MonoBehaviour:
   _dieAudioClip: {fileID: 0}
   _destroyAfterDeadSeconds: -1
   _automaticDamageHandling: 1
-  _automaticDeadHandling: 1
+  _automaticDeadHandling: 0
 --- !u!114 &-5411909959232851633
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4178,7 +4182,7 @@ MonoBehaviour:
   m_SynchronizePosition: 1
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
-  m_UseLocal: 1
+  m_UseLocal: 0
 --- !u!114 &1100389562443532014
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4206,7 +4210,7 @@ MonoBehaviour:
   grabberLeft: {fileID: 7943186178666434085}
   grabberRight: {fileID: 8761561411224700298}
   VRAvatar: {fileID: 7543602541520429575}
---- !u!114 &4311033747487916572
+--- !u!114 &2212918510472401315
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4224,7 +4228,7 @@ MonoBehaviour:
   slider: {fileID: 9188877169228019666}
   animator: {fileID: 0}
   textLife: {fileID: 1354567736998600147}
-  capsCollider: {fileID: 7379034155551971398}
+  capsCollider: {fileID: 3260613865650945500}
   actor: {fileID: -5627350662680035979}
   dmgTaken: {fileID: 0}
   died: {fileID: 0}

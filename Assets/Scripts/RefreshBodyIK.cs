@@ -15,7 +15,6 @@ public class RefreshBodyIK : MonoBehaviourPunCallbacks
     {
         if (VRController != null && !photonView.IsMine)
         {
-            Debug.Log("boyreload");
             VRController.SolveBodyIK();
         }
     }

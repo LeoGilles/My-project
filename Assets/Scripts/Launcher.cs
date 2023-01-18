@@ -65,7 +65,8 @@ public class Launcher : MonoBehaviourPunCallbacks
         // #Critical
         // this makes sure we can use PhotonNetwork.LoadLevel() on the master client and all clients in the same room sync their level automatically
         PhotonNetwork.AutomaticallySyncScene = true;
-        if(UnityEngine.XR.XRSettings.isDeviceActive)
+        
+        if (UnityEngine.XR.XRSettings.isDeviceActive)
         {
             LocalVR = Instantiate(htcPrefab,new Vector3(0f,0f,0f),new Quaternion());           
             mainCamera.enabled = false;

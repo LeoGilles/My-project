@@ -112,17 +112,21 @@ public class BulletTarget : MonoBehaviourPunCallbacks
                 gameObject.SetActive(false);
                 return;
             }
-            if (animator != null)
+            if (gameObject.tag == "NPC")
             {
-                animator.SetLayerWeight(1, Mathf.Lerp(animator.GetLayerWeight(1), 1f, Time.deltaTime * 4f));
-            }
-            if (healthBarUi != null)
-            {
-                healthBarUi.SetActive(false);
-            }
-            if (capsCollider != null)
-            {
-                capsCollider.enabled = false;
+                if (animator != null && gameObject.tag == "NPC")
+                {
+                    animator.SetLayerWeight(1, Mathf.Lerp(animator.GetLayerWeight(1), 1f, Time.deltaTime * 4f));
+                }
+                if (healthBarUi != null && gameObject.tag == "NPC")
+                {
+                    healthBarUi.SetActive(false);
+                }
+                if (capsCollider != null && gameObject.tag == "NPC")
+                {
+                    capsCollider.enabled = false;
+                }
+                Destroy(gameObject, 3f);
             }
             if (photonView != null && photonView.IsMine && gameObject.tag != "NPC")
             {
@@ -136,13 +140,13 @@ public class BulletTarget : MonoBehaviourPunCallbacks
                     newpos = RespawnManager.instance.OnPcPlayerDeath();
                 }
                 prefab.transform.position = newpos;
+                health = maxHealth;
+                if (ownedShield != null)
+                {
+                    ownedShield.health = ownedShield.maxHealth;
+                }
             }
-            health = maxHealth;
-            if(ownedShield != null)
-            {
-                ownedShield.health = ownedShield.maxHealth;
-                ownedShield.gameObject.SetActive(true);
-            }
+
         }
 
     }

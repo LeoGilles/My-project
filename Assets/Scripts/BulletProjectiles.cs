@@ -23,6 +23,7 @@ public class BulletProjectiles : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
+        Debug.Log("collision"+other.gameObject.name);
         BulletTarget target = other.collider.GetComponent<BulletTarget>();
         if (target != null)
         {
