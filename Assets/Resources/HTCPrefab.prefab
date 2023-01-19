@@ -4625,8 +4625,8 @@ MonoBehaviour:
   textLife: {fileID: 1354567736998600147}
   capsCollider: {fileID: 3260613865650945500}
   actor: {fileID: -5627350662680035979}
-  dmgTaken: {fileID: 0}
-  died: {fileID: 0}
+  dmgTaken: {fileID: 906327753655774469}
+  died: {fileID: 8414546979300183698}
   isVR: 1
   racine: {fileID: 6129787516808360775}
   ownedShield: {fileID: 8943380429944630712}

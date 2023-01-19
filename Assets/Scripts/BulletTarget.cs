@@ -175,7 +175,7 @@ public class BulletTarget : MonoBehaviourPunCallbacks
        
         var target = PhotonView.Find(photonId).gameObject.GetComponent<BulletTarget>();
         target.health -= dmg; 
-        Debug.Log("looseheRPC");
+        Debug.Log("looseheRPC "+ dmgTaken);
         dmgTaken.Play();
         if (target.health <= 0)
         {
