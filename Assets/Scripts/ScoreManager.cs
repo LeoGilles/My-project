@@ -138,4 +138,14 @@ public class ScoreManager : MonoBehaviourPunCallbacks
         endText.gameObject.SetActive(false);
         GameOverManager.Instance.StartCredit();
     }
+
+    public int GetPcKillScore()
+    {
+        return pcKillScore;
+    }
+
+    public int GetVrKillScore()
+    {
+        return vrKillScore;
+    }
 }
