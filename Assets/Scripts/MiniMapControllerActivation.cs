@@ -7,6 +7,8 @@ using UltimateXR.Devices.Integrations.Oculus;
 using UltimateXR.Manipulation;
 using UnityEngine;
 using Photon.Pun;
+using TMPro;
+
 public class MiniMapControllerActivation : MonoBehaviourPunCallbacks
 {
     [SerializeField]
@@ -23,6 +25,9 @@ public class MiniMapControllerActivation : MonoBehaviourPunCallbacks
     bool RightShield;
     bool GrabLeft;
     bool GrabRight;
+
+    [SerializeField] private TextMeshProUGUI pcKillText;
+    [SerializeField] private TextMeshProUGUI vrKillText;
     // Start is called before the first frame update
     void Start()
     {
@@ -55,15 +60,15 @@ public class MiniMapControllerActivation : MonoBehaviourPunCallbacks
 
             if (GrabLeft && grabbableObject == grabObj && LeftShield)
             {
-                photonView.RPC("ShowShield", RpcTarget.All, true);
+                Shield.SetActive(true);
             }
             else if (GrabRight && grabbableObject2 == grabObj && RightShield)
             {
-                photonView.RPC("ShowShield", RpcTarget.All, true);
+                Shield.SetActive(true);
             }
             else
             {
-                photonView.RPC("ShowShield",RpcTarget.All,false);
+                Shield.SetActive(false);
             }
         }
     }
@@ -77,5 +82,12 @@ public class MiniMapControllerActivation : MonoBehaviourPunCallbacks
     void ShowMap(bool arg)
     {
         CanvasVR.SetActive(arg);
+        RefreshScore();
+    }
+
+    private void RefreshScore()
+    {
+        pcKillText.text = ScoreManager.Instance.GetPcKillScore().ToString();
+        vrKillText.text = ScoreManager.Instance.GetVrKillScore().ToString();
     }
 }

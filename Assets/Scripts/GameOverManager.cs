@@ -53,7 +53,8 @@ public class GameOverManager : MonoBehaviourPunCallbacks
 
     public void StartCredit()
     {
-        photonView.RPC("RPC_StartCredit", RpcTarget.All);
+        photonView.RPC("RPC_Reset", RpcTarget.All);
+        photonView.RPC("RPC_StartCredit", RpcTarget.MasterClient);
     }
     [PunRPC]
     public void RPC_StartCredit()
@@ -61,5 +62,19 @@ public class GameOverManager : MonoBehaviourPunCallbacks
         Reset();
         //SceneManager.LoadScene("Credits");
         PhotonNetwork.LoadLevel(3);
+        PhotonNetwork.LeaveRoom();
     }
+
+    [PunRPC]
+    public void RPC_Reset()
+    {
+        Reset();
+        StartCoroutine(Disconnect());
+    }
+
+    private IEnumerator Disconnect()
+    {
+        yield return new WaitForSeconds(1f);
+        PhotonNetwork.Disconnect();
+    } 
 }
