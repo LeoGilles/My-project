@@ -56,7 +56,7 @@ public class BulletTarget : MonoBehaviourPunCallbacks
                 photonTemp.RPC("looseLife", RpcTarget.Others, e.Damage, GetComponent<PhotonView>().ViewID);
                 actor.Life -= e.Damage;
                 health -= e.Damage;
-                Hurt();             
+                           
                 if (health <= 0)
                 {
                     if (gameObject.tag == "Shield")
@@ -65,7 +65,7 @@ public class BulletTarget : MonoBehaviourPunCallbacks
                         return;
                     }
                     Debug.Log($"{e.ActorSource.name} killed {this.name}");
-                    Died();
+                   
                 }
             }
 
@@ -144,6 +144,7 @@ public class BulletTarget : MonoBehaviourPunCallbacks
     }
     public void Hurt()
     {
+       
         if (dmgTaken != null)
         {
             dmgTaken.Play();
@@ -171,24 +172,29 @@ public class BulletTarget : MonoBehaviourPunCallbacks
     [PunRPC]
     void looseLife(float dmg, int photonId)
     {
+       
         var target = PhotonView.Find(photonId).gameObject.GetComponent<BulletTarget>();
-        target.actor.Life -= dmg;
-        target.health -= dmg;
-
-        /*if (target.health <= 0)
+        target.health -= dmg; 
+        Debug.Log("looseheRPC");
+        dmgTaken.Play();
+        if (target.health <= 0)
         {
-            Debug.Log($"{target.name} died");
-            target.animator.SetLayerWeight(1, Mathf.Lerp(animator.GetLayerWeight(1), 1f, Time.deltaTime * 4f));
-            if (healthBarUi != null)
+            died.Play();
+        }
+            /*if (target.health <= 0)
             {
-                target.healthBarUi.SetActive(false);
-            }
-            if (capsCollider != null)
-            {
-                target.capsCollider.enabled = false;
-            }
-           
-            Destroy(target, 3f);
-        }*/
-    }
+                Debug.Log($"{target.name} died");
+                target.animator.SetLayerWeight(1, Mathf.Lerp(animator.GetLayerWeight(1), 1f, Time.deltaTime * 4f));
+                if (healthBarUi != null)
+                {
+                    target.healthBarUi.SetActive(false);
+                }
+                if (capsCollider != null)
+                {
+                    target.capsCollider.enabled = false;
+                }
+
+                Destroy(target, 3f);
+            }*/
+        }
 }
