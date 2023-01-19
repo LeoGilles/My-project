@@ -56,20 +56,16 @@ public class BulletTarget : MonoBehaviourPunCallbacks
                 photonTemp.RPC("looseLife", RpcTarget.Others, e.Damage, GetComponent<PhotonView>().ViewID);
                 actor.Life -= e.Damage;
                 health -= e.Damage;
-
-                if (gameObject.tag == "Shield")
-                {
-                    gameObject.SetActive(false);
-                    return;
-                }
+                Hurt();             
                 if (health <= 0)
                 {
+                    if (gameObject.tag == "Shield")
+                    {
+                        gameObject.SetActive(false);
+                        return;
+                    }
                     Debug.Log($"{e.ActorSource.name} killed {this.name}");
                     Died();
-                }
-                else
-                {
-                    Hurt();
                 }
             }
 
